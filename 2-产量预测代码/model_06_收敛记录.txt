@@ -1,0 +1,1198 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\3-模型训练+预测\训练备份.py"
+✅ CUDA 11.8环境变量已存在
+TensorFlow版本: 2.10.1
+CUDA是否可用: True
+检测到的GPU数量: 1
+GPU 0 设备名称: /physical_device:GPU:0
+Windows下TensorFlow官方不支持多GPU NCCL通信，自动切换为单卡训练。
+已启用GPU内存增长，仅使用GPU: /physical_device:GPU:0
+多GPU训练环境设置成功，将使用 1 个GPU进行训练
+=== 脚本已启动 ===
+=== 进入主流程 ===
+
+=== 开始运行优化预测程序 ===
+
+1. 验证配置...
+参数验证通过
+路径验证通过
+
+2. 创建输出目录...
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\LabelEnconderAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\ScalerAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\XGBoostAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\final_logsAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\result_predited_csvAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\analysis_result_mapAA
+Created directory: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\analysis_training_mapAA
+
+3. 配置GPU和多GPU训练环境...
+TensorFlow版本: 2.10.1
+CUDA支持: 是
+Windows下TensorFlow官方不支持多GPU NCCL通信，自动切换为单卡训练。
+已启用GPU内存增长，仅使用GPU: /physical_device:GPU:0
+✅ 单GPU训练环境配置成功，将使用 1 个GPU
+
+3.1 验证XGBoost GPU支持...
+XGBoost版本: 3.0.4
+✅ XGBoost GPU支持正常
+
+4. 开始加载和处理数据...
+
+1/4.Loading and preprocessing data...
+使用文件夹模式加载训练气象数据...
+从文件夹读取气象数据: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\train+text_csv数据\训练气象
+找到 2 个CSV文件: ['test_weather_2012.csv', 'test_weather_2013.csv']
+每个文件最多读取 5,000 行数据
+正在读取文件: test_weather_2012.csv
+读取气象数据文件:  50%|█████     | 1/2 [00:01<00:01,  1.03s/it]  文件总行数: 2,905,129
+  ⚠️ 文件过大，只读取前 5,000 行
+  ✅ 成功读取: 5,000 行 × 15 列
+正在读取文件: test_weather_2013.csv
+  文件总行数: 2,905,129
+  ⚠️ 文件过大，只读取前 5,000 行
+读取气象数据文件: 100%|██████████| 2/2 [00:02<00:00,  1.02s/it]
+  ✅ 成功读取: 5,000 行 × 15 列
+合并气象数据文件...
+合并后的气象数据形状: (10000, 15)
+合并后的气象数据列: ['Lon', 'Lat', 'altitude', 'YYYY', 'MM', 'Tsun_mean', 'TAVE_mean', 'Tmax_mean', 'Tmin_mean', 'Rain_mean', 'GTAVE_mean', 'GTmax_mean', 'GTmin_mean', 'Sevp_mean', 'source_file']
+各文件数据量统计:
+source_file
+test_weather_2012.csv    5000
+test_weather_2013.csv    5000
+Name: count, dtype: int64
+使用全部气象数据: 10,000 行
+Weather data shape: (10000, 14)
+Weather data columns: ['Lon', 'Lat', 'altitude', 'YYYY', 'MM', 'Tsun_mean', 'TAVE_mean', 'Tmax_mean', 'Tmin_mean', 'Rain_mean', 'GTAVE_mean', 'GTmax_mean', 'GTmin_mean', 'Sevp_mean']
+Loading training soil data from: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\train+text_csv数据\soil_test.csv
+Soil data shape: (140867, 10)
+Soil data columns: ['x', 'y', 'TZ', 'CEC', 'PH', 'SOC', 'SOCD', 'TK', 'TND', 'TPD']
+使用全部土壤数据: 140,867 行
+检测到土壤数据使用 TZ 列名，重命名为 tz...
+
+=== 开始坐标统一处理 ===
+重命名气象数据坐标列: Lon/Lat -> x/y
+使用快速坐标统一方法...
+使用快速坐标统一，容差: 100米
+气象数据形状: (10000, 14)
+土壤数据形状: (140867, 10)
+土壤数据坐标范围: x[150721.13, 196981.13], y[3342517.88, 3405067.88]
+气象数据坐标范围: x[163595.88, 179015.82], y[3342530.25, 3347036.72]
+应用坐标对齐策略...
+  处理进度: 0/10000 (0.0%)
+移除无法匹配的数据点...
+坐标统一后气象数据形状: (10000, 16)
+坐标统一成功率: 100.0%
+=== 坐标统一完成 ===
+
+Loading training product data from: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\train+text_csv数据\maize_test_1013.csv
+Product data shape: (694796, 6)
+Product data columns: ['x', 'y', 'SUIT', 'YYYY', 'per_mu', 'per_qu']
+清理气象数据：删除有缺失值的行...
+原始气象数据形状: (10000, 16)
+气象特征列数量: 9
+气象特征列: ['tsun_mean', 'tave_mean', 'tmax_mean', 'tmin_mean', 'rain_mean']...
+删除缺失值后气象数据形状: (10000, 16)
+删除了 0 行有缺失值的数据
+保留率: 100.00%
+
+清理产品数据：删除有缺失值的行...
+原始产品数据形状: (694796, 6)
+删除缺失值后产品数据形状: (694796, 6)
+删除了 0 行有缺失值的数据
+保留率: 100.00%
+
+清理土壤数据：删除有缺失值的行...
+原始土壤数据形状: (140867, 10)
+删除缺失值后土壤数据形状: (140673, 10)
+删除了 194 行有缺失值的数据
+保留率: 99.86%
+product_train 年份示例: <IntegerArray>
+[2010, 2011, 2012, 2013]
+Length: 4, dtype: Int64
+weather_train 年份示例: <IntegerArray>
+[2012, 2013]
+Length: 2, dtype: Int64
+使用全部数据进行合并...
+产品数据形状: (694796, 6)
+气象数据形状: (10000, 16)
+尝试按 ['x','y','yyyy'] 精确键合并 product 与 weather ...
+气象数据列名: ['x', 'y', 'altitude', 'yyyy', 'mm', 'tsun_mean', 'tave_mean', 'tmax_mean', 'tmin_mean', 'rain_mean', 'gtave_mean', 'gtmax_mean', 'gtmin_mean', 'sevp_mean', 'x_original', 'y_original']
+气象数据年份列已经是 yyyy，无需重命名
+重命名后气象数据列名: ['x', 'y', 'altitude', 'yyyy', 'mm', 'tsun_mean', 'tave_mean', 'tmax_mean', 'tmin_mean', 'rain_mean', 'gtave_mean', 'gtmax_mean', 'gtmin_mean', 'sevp_mean', 'x_original', 'y_original']
+精确键合并结果为空，回退到空间+时间近邻合并（坐标误差控制在50公里内）...
+处理年份: <IntegerArray>
+[2010, 2011, 2012, 2013]
+Length: 4, dtype: Int64
+气象数据可用年份: <IntegerArray>
+[2012, 2013]
+Length: 2, dtype: Int64
+年份完全匹配的年份: [2012, 2013]
+处理年份 2012 (1/2)...
+  使用相同年份 2012 的气象数据
+  左表: 173699 行, 右表: 5000 行
+  合并成功: 162697 行
+处理年份 2013 (2/2)...
+  使用相同年份 2013 的气象数据
+  左表: 173699 行, 右表: 5000 行
+  合并成功: 162697 行
+合并完成，共 2 个年份的数据
+After product-weather merge: (325394, 22)
+merged_pw columns: ['x', 'y', 'suit', 'yyyy', 'per_mu', 'per_qu', 'right_x', 'right_y', 'right_altitude', 'right_yyyy', 'right_mm', 'right_tsun_mean', 'right_tave_mean', 'right_tmax_mean', 'right_tmin_mean', 'right_rain_mean', 'right_gtave_mean', 'right_gtmax_mean', 'right_gtmin_mean', 'right_sevp_mean', 'right_x_original', 'right_y_original']
+x_cols: ['x']
+y_cols: ['y']
+xw_cols: ['right_x']
+yw_cols: ['right_y']
+After product-weather-soil merge: (325394, 32)
+Merged training data shape: (325394, 32)
+
+Extracting features...
+Selected feature columns (26):
+['x_product', 'y_product', 'right_altitude', 'right_yyyy', 'right_mm', 'right_tsun_mean', 'right_tave_mean', 'right_tmax_mean', 'right_tmin_mean', 'right_rain_mean', 'right_gtave_mean', 'right_gtmax_mean', 'right_gtmin_mean', 'right_sevp_mean', 'right_x_original', 'right_y_original', 'right_x', 'right_y', 'right_tz', 'right_cec', 'right_ph', 'right_soc', 'right_socd', 'right_tk', 'right_tnd', 'right_tpd']
+目标变量原始统计信息:
+per_mu: min=99.4667, max=169.8000, mean=119.5080
+per_qu: min=1208.5140, max=2063.0597, mean=1452.0154
+suit: unique values=N/A
+per_mu 异常值裁剪: [107.1333, 143.8000]
+per_qu 异常值裁剪: [1315.4334, 1692.0815]
+
+🔧 关键修复：在数据分割前进行log1p变换，确保训练集和验证集使用相同的数据预处理...
+对目标变量进行log1p变换...
+log1p变换后目标变量统计信息:
+per_mu: min=4.6098, max=5.1405, mean=4.7905
+per_qu: min=7.0980, max=7.6324, mean=7.2801
+per_qu log1p后裁剪: [7.1322, 7.5697]
+per_mu log1p后裁剪: [4.6437, 5.0781]
+
+简化处理：不加载测试集，只使用训练集进行训练...
+后续可以用训练好的模型去预测测试集数据
+从训练集中划分验证集...
+训练集大小: (260315, 32)
+验证集大小: (65079, 32)
+
+🔧 启用数据采样控制...
+配置: 最大训练集=5000, 最大验证集=1000
+采样策略: first_n
+训练集采样: 260,315 -> 5,000
+✅ 训练集采样完成: (5000, 32)
+验证集采样: 65,079 -> 1,000
+✅ 验证集采样完成: (1000, 32)
+🎯 最终数据量: 训练集=5,000, 验证集=1,000
+验证集特征矩阵形状: (1000, 26)
+最终验证集特征矩阵形状: (1000, 26)
+训练集特征矩阵形状: (319094, 26)
+
+Preparing features...
+拆分后目标变量统计信息（已经是log1p变换后的）:
+per_mu: min=4.6437, max=5.0781, mean=4.7898
+per_qu: min=7.1322, max=7.5697, mean=7.2795
+suit: unique values=[1]
+
+处理所有object类型特征：区间字符串转均值，普通字符串用LabelEncoder编码
+将区间字符串列 right_tz 转为均值
+
+X_train dtypes before standardization:
+x_product           float64
+y_product           float64
+right_altitude      float64
+right_yyyy            Int64
+right_mm              int64
+right_tsun_mean     float64
+right_tave_mean     float64
+right_tmax_mean     float64
+right_tmin_mean     float64
+right_rain_mean     float64
+right_gtave_mean    float64
+right_gtmax_mean    float64
+right_gtmin_mean    float64
+right_sevp_mean     float64
+right_x_original    float64
+right_y_original    float64
+right_x             float64
+right_y             float64
+right_tz            float64
+right_cec           float64
+right_ph            float64
+right_soc           float64
+right_socd          float64
+right_tk            float64
+right_tnd           float64
+right_tpd           float64
+dtype: object
+
+所有object列唯一值检查：
+
+X_train dtypes before standardization:
+x_product           float64
+y_product           float64
+right_altitude      float64
+right_yyyy            Int64
+right_mm              int64
+right_tsun_mean     float64
+right_tave_mean     float64
+right_tmax_mean     float64
+right_tmin_mean     float64
+right_rain_mean     float64
+right_gtave_mean    float64
+right_gtmax_mean    float64
+right_gtmin_mean    float64
+right_sevp_mean     float64
+right_x_original    float64
+right_y_original    float64
+right_x             float64
+right_y             float64
+right_tz            float64
+right_cec           float64
+right_ph            float64
+right_soc           float64
+right_socd          float64
+right_tk            float64
+right_tnd           float64
+right_tpd           float64
+dtype: object
+
+所有object列唯一值检查：
+
+Standardizing features...
+Saving scaler...
+Scaler successfully saved to: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\ScalerAA\scaler_AA.pkl
+Saving label encoder...
+Label encoder successfully saved to: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\LabelEnconderAA\label_encoder_AA.pkl
+Data loading and preprocessing completed successfully.
+==== train 数据检查 ====
+X shape: (5000, 26)
+y_reg shape: (5000, 2)
+y_cls shape: (5000,)
+X NaN: x_product           0
+y_product           0
+right_altitude      0
+right_yyyy          0
+right_mm            0
+right_tsun_mean     0
+right_tave_mean     0
+right_tmax_mean     0
+right_tmin_mean     0
+right_rain_mean     0
+right_gtave_mean    0
+right_gtmax_mean    0
+right_gtmin_mean    0
+right_sevp_mean     0
+right_x_original    0
+right_y_original    0
+right_x             0
+right_y             0
+right_tz            0
+right_cec           0
+right_ph            0
+right_soc           0
+right_socd          0
+right_tk            0
+right_tnd           0
+right_tpd           0
+dtype: int64 Inf: x_product           0
+y_product           0
+right_altitude      0
+right_yyyy          0
+right_mm            0
+right_tsun_mean     0
+right_tave_mean     0
+right_tmax_mean     0
+right_tmin_mean     0
+right_rain_mean     0
+right_gtave_mean    0
+right_gtmax_mean    0
+right_gtmin_mean    0
+right_sevp_mean     0
+right_x_original    0
+right_y_original    0
+right_x             0
+right_y             0
+right_tz            0
+right_cec           0
+right_ph            0
+right_soc           0
+right_socd          0
+right_tk            0
+right_tnd           0
+right_tpd           0
+dtype: int64
+y_reg NaN: per_qu    0
+per_mu    0
+dtype: int64 Inf: per_qu    0
+per_mu    0
+dtype: int64
+y_cls NaN: 0 Inf: 0
+y_reg describe:
+             per_qu       per_mu
+count  5000.000000  5000.000000
+mean      7.279481     4.789824
+std       0.049090     0.048722
+min       7.132205     4.643750
+25%       7.247019     4.757605
+50%       7.274897     4.785267
+75%       7.306379     4.816511
+max       7.569675     5.078086
+y_cls value counts:
+ 0.0    5000
+Name: count, dtype: int64
+========================================
+
+4.1 验证数据质量...
+
+🔍 验证训练数据质量...
+训练集特征形状: (5000, 26)
+验证集特征形状: (1000, 26)
+训练集回归标签形状: (5000, 2)
+验证集回归标签形状: (1000, 2)
+训练集分类标签形状: (5000,)
+验证集分类标签形状: (1000,)
+训练集特征NaN数量: 0
+验证集特征NaN数量: 0
+训练集回归标签NaN数量: 0
+验证集回归标签NaN数量: 0
+训练集per_mu范围: [4.6437, 5.0781]
+训练集per_qu范围: [7.1322, 7.5697]
+验证集per_mu范围: [4.6437, 5.0781]
+验证集per_qu范围: [7.1322, 7.5697]
+训练集分类标签分布: (array([0.]), array([5000], dtype=int64))
+验证集分类标签分布: (array([0.]), array([1000], dtype=int64))
+训练集特征统计: 均值=0.000000, 标准差=0.960769
+训练集特征范围: [-16.247676, 7.096370]
+✅ 数据质量验证完成
+
+4.1 使用全部数据进行训练...
+使用全部数据: 训练集 5,000 条，验证集 1,000 条
+标准化特征（使用RobustScaler）...
+🔍 验证特征标准化效果...
+训练集标准化后统计: 均值=-0.059876, 标准差=0.783147
+验证集标准化后统计: 均值=-0.053293, 标准差=0.800753
+数据质量检查: 训练集NaN=0, Inf=0, 验证集NaN=0, Inf=0
+✅ 数据质量良好，无异常值
+Scaler已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\ScalerAA\scaler_AA.pkl
+Label encoder已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\LabelEnconderAA\label_encoder_AA.pkl
+
+3. 特征工程...
+处理缺失值...
+训练集缺失值统计:
+x_product           0
+y_product           0
+right_altitude      0
+right_yyyy          0
+right_mm            0
+right_tsun_mean     0
+right_tave_mean     0
+right_tmax_mean     0
+right_tmin_mean     0
+right_rain_mean     0
+right_gtave_mean    0
+right_gtmax_mean    0
+right_gtmin_mean    0
+right_sevp_mean     0
+right_x_original    0
+right_y_original    0
+right_x             0
+right_y             0
+right_tz            0
+right_cec           0
+right_ph            0
+right_soc           0
+right_socd          0
+right_tk            0
+right_tnd           0
+right_tpd           0
+dtype: int64
+
+验证集缺失值统计:
+x_product           0
+y_product           0
+right_altitude      0
+right_yyyy          0
+right_mm            0
+right_tsun_mean     0
+right_tave_mean     0
+right_tmax_mean     0
+right_tmin_mean     0
+right_rain_mean     0
+right_gtave_mean    0
+right_gtmax_mean    0
+right_gtmin_mean    0
+right_sevp_mean     0
+right_x_original    0
+right_y_original    0
+right_x             0
+right_y             0
+right_tz            0
+right_cec           0
+right_ph            0
+right_soc           0
+right_socd          0
+right_tk            0
+right_tnd           0
+right_tpd           0
+dtype: int64
+
+填充后训练集缺失值统计:
+0
+填充后验证集缺失值统计:
+0
+确保所有特征都是数值类型...
+缺失值处理完成！
+执行PCA降维...
+PCA对象已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\ScalerAA\pca_AA.pkl
+生成交互特征...
+训练集特征列名: ['x_product', 'y_product', 'right_altitude', 'right_yyyy', 'right_mm', 'right_tsun_mean', 'right_tave_mean', 'right_tmax_mean', 'right_tmin_mean', 'right_rain_mean']...
+验证集特征列名: ['x_product', 'y_product', 'right_altitude', 'right_yyyy', 'right_mm', 'right_tsun_mean', 'right_tave_mean', 'right_tmax_mean', 'right_tmin_mean', 'right_rain_mean']...
+共同特征列数量: 26
+为训练集生成交互特征...
+⚠️ 大数据量优化：跳过交互特征生成以加快训练速度
+   原因：800万行数据生成交互特征需要数小时，影响训练效率
+跳过交互特征生成，直接使用原始特征: (5000, 26)
+为验证集生成相同的交互特征...
+训练集特征列数: 26
+验证集特征列数: 26
+特征列是否一致: True
+选中的交互特征: []
+验证集跳过交互特征生成，直接使用原始特征: (1000, 26)
+交互特征已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\selected_inter_feats.json
+特征顺序已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_order.json
+特征顺序已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_order.json
+4. 大数据量内存优化：采样到50万条数据进行XGBoost训练...
+数据量适中(5,000行)，无需采样
+4. 提取XGBoost叶子节点特征...
+XGBoost模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\XGBoostAA\xgb_model_AA.json
+分批提取叶子节点特征...
+处理训练集批次 1/1
+处理验证集批次 1/1
+最终检查特征类型...
+确保所有列名都是字符串类型...
+最终特征数量: X_train_all=87, X_val_all=87
+X_train_all列名类型: {<class 'str'>}
+X_val_all列名类型: {<class 'str'>}
+Ridge回归R² (per_mu): 0.9663863366380837
+原始特征数量: 87
+原始特征名示例: ['x_product', 'y_product', 'right_altitude', 'right_yyyy', 'right_mm', 'right_tsun_mean', 'right_tave_mean', 'right_tmax_mean', 'right_tmin_mean', 'right_rain_mean']
+有意义的特征数量: 37
+
+计算特征重要性...
+使用全部特征进行重要性计算: 87 个特征
+🔍 检查特征相关性...
+⚠️ 发现 4 对高相关性特征 (>0.95):
+  x_product <-> right_x: 1.0000
+  y_product <-> right_y: 1.0000
+  right_y_original <-> pca_0: 0.9931
+  right_soc <-> right_socd: 0.9598
+使用XGBoost的特征重要性计算方法...
+✅ 成功获取XGBoost feature_importances_: 87 个特征
+警告：特征重要性长度(87)与特征名长度(37)不匹配
+调整特征名列表长度以匹配特征重要性长度
+添加了 50 个特征名
+特征数量过多，已限制为前15个最重要的特征
+
+找到 15 个关键特征:
+1. feature_38 (重要性: 0.0468, 相对重要性: 0.0468)
+2. feature_73 (重要性: 0.0326, 相对重要性: 0.0326)
+3. feature_44 (重要性: 0.0298, 相对重要性: 0.0298)
+4. feature_58 (重要性: 0.0295, 相对重要性: 0.0295)
+5. feature_39 (重要性: 0.0292, 相对重要性: 0.0292)
+6. feature_42 (重要性: 0.0286, 相对重要性: 0.0286)
+7. feature_37 (重要性: 0.0286, 相对重要性: 0.0286)
+8. feature_43 (重要性: 0.0281, 相对重要性: 0.0281)
+9. feature_50 (重要性: 0.0279, 相对重要性: 0.0279)
+10. feature_52 (重要性: 0.0272, 相对重要性: 0.0272)
+11. feature_41 (重要性: 0.0270, 相对重要性: 0.0270)
+12. feature_49 (重要性: 0.0263, 相对重要性: 0.0263)
+13. feature_40 (重要性: 0.0262, 相对重要性: 0.0262)
+14. feature_45 (重要性: 0.0255, 相对重要性: 0.0255)
+15. feature_78 (重要性: 0.0252, 相对重要性: 0.0252)
+特征重要性已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\feature_importance_AA.csv
+关键特征列表已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\key_features_AA.json
+特征重要性图已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\feature_importance_plot_AA.png
+原始特征列名已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\original_feature_names.txt
+成功匹配的Top特征数量: 50
+Top特征示例: ['1', '36', '7', '21', '2', '5', '0', '6', '13', '15']
+
+7. 准备训练集和验证集标签...
+验证集目标变量已经是log1p变换后的，无需再次变换...
+4. 大数据量内存优化：采样到100万条数据进行训练...
+数据量适中(5,000行)，无需采样
+验证集统计信息（已经是log1p变换后的）:
+per_mu: min=4.6628, max=5.0702, mean=4.7912
+per_qu: min=7.1514, max=7.5617, mean=7.2808
+训练集标签形状: y_cls=(5000,), y_reg=(5000, 2)
+验证集标签形状: y_cls=(1000,), y_reg=(1000, 2)
+
+8. 执行交叉验证和模型集成...
+🔍 全局R²状态检查: GLOBAL_R2_ACHIEVED=False, GLOBAL_BEST_R2=0.0
+🔍 全局最佳参数: None
+ℹ️ 未检测到R²达到0.7，交叉验证将进行正常调参
+
+训练第 1/2 折...
+🔧 交叉验证第1折: 应用数据量控制...
+  验证集采样: 2,500 -> 1,000
+  ✅ 验证集采样完成: (1000, 87)
+  🎯 第1折最终数据量: 训练集=2,500, 验证集=1,000
+
+训练模型 1/1...
+
+Extracting XGBoost features...
+使用全部训练数据: 2,500 个样本
+使用全部验证数据: 1,000 个样本
+Only one class found: 0.0, switching to regression mode
+Number of classes: 1
+Training XGBoost model...
+Training XGBoost: 100%|██████████| 15/15 [00:00<00:00, 294.70it/s]
+Saving XGBoost model...
+XGBoost model successfully saved to: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\XGBoostAA\xgb_model_AA.json
+Extracting leaf features (chunked)...
+XGBoost feature extraction completed successfully.
+
+开始Optuna超参数优化...
+输入数据验证:
+X_train shape: (2500, 88), dtype: unknown
+X_val shape: (1000, 88), dtype: unknown
+y_reg_train shape: (2500, 2)
+y_reg_val shape: (1000, 2)
+训练集目标变量统计:
+            per_qu       per_mu
+count  2500.000000  2500.000000
+mean      7.278821     4.789170
+std       0.048407     0.048045
+min       7.132205     4.643750
+25%       7.247019     4.757605
+50%       7.273774     4.784153
+75%       7.303657     4.813809
+max       7.552820     5.061328
+验证集目标变量统计:
+            per_qu       per_mu
+count  1000.000000  1000.000000
+mean      7.278912     4.789261
+std       0.049547     0.049174
+min       7.132205     4.643750
+25%       7.245864     4.756460
+50%       7.273774     4.784153
+75%       7.307466     4.817590
+max       7.569675     5.078086
+标签NaN检查 - 训练: per_qu    0
+per_mu    0
+dtype: int64, 验证: per_qu    0
+per_mu    0
+dtype: int64
+最终数据质量检查...
+数据清理完成，开始Optuna优化...
+[I 2025-10-14 18:20:24,494] A new study created in memory with name: no-name-0c5ab2b8-921b-41b3-9214-054e4895a509
+2025-10-14 18:20:24.506883: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-14 18:20:24.520070: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 21458 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 4090, pci bus id: 0000:00:03.0, compute capability: 8.9
+2025-10-14 18:20:36.753084: I tensorflow/stream_executor/cuda/cuda_blas.cc:1614] TensorFloat-32 will be used for the matrix multiplication. This will only be logged once.
+🔍 R²计算调试信息:
+   真实值范围: [7.1322, 7.5697]
+   预测值范围: [4.9796, 8.0000]
+   真实值均值: 7.2789, 标准差: 0.0495
+   预测值均值: 6.6017, 标准差: 0.5714
+Epoch 1: R²=-100.0000, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -100
+💾 模型已保存: model_trial_0_epoch_1_r2_-100.0000.h5 (R²=-100.0000)
+Epoch 2: R²=-4.3615, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -4.361461939469193
+💾 模型已保存: model_trial_0_epoch_2_r2_-4.3615.h5 (R²=-4.3615)
+Epoch 3: R²=-25.0756, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -25.075611012778474
+💾 模型已保存: model_trial_0_epoch_3_r2_-25.0756.h5 (R²=-25.0756)
+Epoch 4: R²=-0.8714, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_4_r2_-0.8714.h5 (R²=-0.8714)
+Epoch 5: R²=-1.5015, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_5_r2_-1.5015.h5 (R²=-1.5015)
+Epoch 6: R²=0.5219, Best R²=0.5219, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_6_r2_0.5219.h5 (R²=0.5219)
+Epoch 7: R²=0.7071, Best R²=0.7071, 阈值=0.7
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.7071, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.0010189462982409876, 'neurons1': 125, 'neurons2': 101, 'dropout_rate': 0.05126815656688649, 'batch_size': 16, 'attention_units': 28, 'l1_lambda': 2.398756920449152e-07, 'l2_lambda': 2.1933205698312214e-07, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.7070573689192612
+🎯 Trial 0 已标记为R²达到0.7
+🎯 R²达到0.7071，停止调参训练！
+[I 2025-10-14 18:23:22,527] Trial 0 finished with value: 0.001 and parameters: {'lr': 0.0010189462982409876, 'neurons1': 125, 'neurons2': 101, 'dropout_rate': 0.05126815656688649, 'batch_size': 16, 'attention_units': 28, 'l1_lambda': 2.398756920449152e-07, 'l2_lambda': 2.1933205698312214e-07, 'optimizer_type': 'adam', 'activation': 'gelu'}. Best is trial 0 with value: 0.001.
+🔍 R²计算调试信息:
+   真实值范围: [7.1322, 7.5697]
+   预测值范围: [8.0000, 8.0000]
+   真实值均值: 7.2789, 标准差: 0.0495
+   预测值均值: 8.0000, 标准差: 0.0000
+警告: 预测值方差为0，设置R²为-1000
+Epoch 1: R²=-1000.0000, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -1000
+💾 模型已保存: model_trial_1_epoch_1_r2_-1000.0000.h5 (R²=-1000.0000)
+Epoch 2: R²=-36.2990, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -36.29903660533248
+💾 模型已保存: model_trial_1_epoch_2_r2_-36.2990.h5 (R²=-36.2990)
+Epoch 3: R²=-0.6931, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -0.6930785124418413
+💾 模型已保存: model_trial_1_epoch_3_r2_-0.6931.h5 (R²=-0.6931)
+Epoch 4: R²=0.6511, Best R²=0.6511, 阈值=0.7
+💾 模型已保存: model_trial_1_epoch_4_r2_0.6511.h5 (R²=0.6511)
+Epoch 5: R²=0.8399, Best R²=0.8399, 阈值=0.7
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.8399, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.007579132053776891, 'neurons1': 116, 'neurons2': 51, 'dropout_rate': 0.07129282438058171, 'batch_size': 32, 'attention_units': 18, 'l1_lambda': 7.76295641282721e-07, 'l2_lambda': 1.0974089268022476e-07, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.8398799411183967
+🎯 Trial 1 已标记为R²达到0.7
+🎯 R²达到0.8399，停止调参训练！
+[I 2025-10-14 18:24:38,698] Trial 1 finished with value: 0.001 and parameters: {'lr': 0.007579132053776891, 'neurons1': 116, 'neurons2': 51, 'dropout_rate': 0.07129282438058171, 'batch_size': 32, 'attention_units': 18, 'l1_lambda': 7.76295641282721e-07, 'l2_lambda': 1.0974089268022476e-07, 'optimizer_type': 'adam', 'activation': 'gelu'}. Best is trial 0 with value: 0.001.
+🔍 R²计算调试信息:
+   真实值范围: [7.1322, 7.5697]
+   预测值范围: [6.7954, 8.0000]
+   真实值均值: 7.2789, 标准差: 0.0495
+   预测值均值: 7.9560, 标准差: 0.1311
+Epoch 1: R²=-100.0000, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -100
+💾 模型已保存: model_trial_2_epoch_1_r2_-100.0000.h5 (R²=-100.0000)
+Epoch 2: R²=-1.3235, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -1.323529188499466
+💾 模型已保存: model_trial_2_epoch_2_r2_-1.3235.h5 (R²=-1.3235)
+[I 2025-10-14 18:25:55,357] Trial 2 finished with value: 0.001 and parameters: {'lr': 0.010566713862731591, 'neurons1': 75, 'neurons2': 89, 'dropout_rate': 0.06122996025422353, 'batch_size': 16, 'attention_units': 49, 'l1_lambda': 1.1678375361180623e-08, 'l2_lambda': 1.697144529974383e-07, 'optimizer_type': 'adam', 'activation': 'relu'}. Best is trial 0 with value: 0.001.
+Epoch 3: R²=0.8125, Best R²=0.8125, 阈值=0.7
+🔍 调试: logs['val_r2'] = 0.8124592147677548
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.8125, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.010566713862731591, 'neurons1': 75, 'neurons2': 89, 'dropout_rate': 0.06122996025422353, 'batch_size': 16, 'attention_units': 49, 'l1_lambda': 1.1678375361180623e-08, 'l2_lambda': 1.697144529974383e-07, 'optimizer_type': 'adam', 'activation': 'relu'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.8124592147677548
+🎯 Trial 2 已标记为R²达到0.7
+🎯 R²达到0.8125，停止调参训练！
+
+最佳超参数: {'lr': 0.0010189462982409876, 'neurons1': 125, 'neurons2': 101, 'dropout_rate': 0.05126815656688649, 'batch_size': 16, 'attention_units': 28, 'l1_lambda': 2.398756920449152e-07, 'l2_lambda': 2.1933205698312214e-07, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 发现R²达到0.7的试验: 试验0, R²=0.7071
+
+使用最佳参数训练最终模型...
+使用参数: 全局最佳参数
+Epoch 1/20
+157/157 [==============================] - ETA: 0s - loss: 0.1545 - classification_loss: 0.0000e+00 - regression_loss: 0.1500 - classification_accuracy: 0.0000e+00 - regression_mae: 0.4354 - regression_mse: 0.3268💾 最佳模型已保存: final_model_r2_0.0000.h5 (R²=0.0000, val_r2=inf)
+Epoch 1 - 预测值范围: min=4.000000, max=8.000000
+Epoch 1 - 真实值范围: min=4.643750, max=7.569675
+Epoch 1 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 1 - per_mu R²: -100.0000
+Epoch 1: val_r2=-100.0000 < 0.1, bad_epochs=0
+157/157 [==============================] - 39s 171ms/step - loss: 0.1545 - classification_loss: 0.0000e+00 - regression_loss: 0.1500 - classification_accuracy: 0.0000e+00 - regression_mae: 0.4354 - regression_mse: 0.3268 - val_loss: 0.2742 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.2698 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.7192 - val_regression_mse: 0.5400 - lr: 0.0010 - val_r2: -100.0000
+Epoch 2/20
+157/157 [==============================] - ETA: 0s - loss: 0.0356 - classification_loss: 0.0000e+00 - regression_loss: 0.0313 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1695 - regression_mse: 0.0637Epoch 2 - 预测值范围: min=4.000000, max=7.884982
+Epoch 2 - 真实值范围: min=4.643750, max=7.569675
+Epoch 2 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 2 - per_mu R²: -34.4551
+Epoch 2: val_r2=-34.4551 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 161ms/step - loss: 0.0356 - classification_loss: 0.0000e+00 - regression_loss: 0.0313 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1695 - regression_mse: 0.0637 - val_loss: 0.0326 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0283 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.1715 - val_regression_mse: 0.0566 - lr: 0.0010 - val_r2: -34.4551
+Epoch 3/20
+157/157 [==============================] - ETA: 0s - loss: 0.0245 - classification_loss: 0.0000e+00 - regression_loss: 0.0202 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1280 - regression_mse: 0.0407Epoch 3 - 预测值范围: min=4.000000, max=8.000000
+Epoch 3 - 真实值范围: min=4.643750, max=7.569675
+Epoch 3 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+[警告] epoch 3 预测值方差为0，设置R²为-1000
+Epoch 3: val_r2=-1000.0000 < 0.1, bad_epochs=1
+157/157 [==============================] - 25s 158ms/step - loss: 0.0245 - classification_loss: 0.0000e+00 - regression_loss: 0.0202 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1280 - regression_mse: 0.0407 - val_loss: 0.2164 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.2121 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.6184 - val_regression_mse: 0.4243 - lr: 0.0010 - val_r2: -1000.0000
+Epoch 4/20
+157/157 [==============================] - ETA: 0s - loss: 0.0200 - classification_loss: 0.0000e+00 - regression_loss: 0.0157 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1082 - regression_mse: 0.0314Epoch 4 - 预测值范围: min=4.000000, max=8.000000
+Epoch 4 - 真实值范围: min=4.643750, max=7.569675
+Epoch 4 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 4 - per_mu R²: -1.1121
+Epoch 4: val_r2=-1.1121 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 159ms/step - loss: 0.0200 - classification_loss: 0.0000e+00 - regression_loss: 0.0157 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1082 - regression_mse: 0.0314 - val_loss: 0.0065 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0022 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0400 - val_regression_mse: 0.0045 - lr: 0.0010 - val_r2: -1.1121
+Epoch 5/20
+157/157 [==============================] - ETA: 0s - loss: 0.0179 - classification_loss: 0.0000e+00 - regression_loss: 0.0136 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0978 - regression_mse: 0.0275Epoch 5 - 预测值范围: min=4.000000, max=7.613455
+Epoch 5 - 真实值范围: min=4.643750, max=7.569675
+Epoch 5 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 5 - per_mu R²: -0.9154
+Epoch 5: val_r2=-0.9154 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 157ms/step - loss: 0.0179 - classification_loss: 0.0000e+00 - regression_loss: 0.0136 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0978 - regression_mse: 0.0275 - val_loss: 0.0061 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0018 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0394 - val_regression_mse: 0.0035 - lr: 0.0010 - val_r2: -0.9154
+Epoch 6/20
+157/157 [==============================] - ETA: 0s - loss: 0.0155 - classification_loss: 0.0000e+00 - regression_loss: 0.0112 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0849 - regression_mse: 0.0226Epoch 6 - 预测值范围: min=4.000000, max=7.866046
+Epoch 6 - 真实值范围: min=4.643750, max=7.569675
+Epoch 6 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 6 - per_mu R²: -0.5285
+Epoch 6: val_r2=-0.5285 < 0.1, bad_epochs=0
+157/157 [==============================] - 26s 164ms/step - loss: 0.0155 - classification_loss: 0.0000e+00 - regression_loss: 0.0112 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0849 - regression_mse: 0.0226 - val_loss: 0.0061 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0018 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0380 - val_regression_mse: 0.0036 - lr: 8.1516e-04 - val_r2: -0.5285
+Epoch 7/20
+157/157 [==============================] - ETA: 0s - loss: 0.0140 - classification_loss: 0.0000e+00 - regression_loss: 0.0097 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0771 - regression_mse: 0.0195Epoch 7 - 预测值范围: min=4.000000, max=7.734509
+Epoch 7 - 真实值范围: min=4.643750, max=7.569675
+Epoch 7 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 7 - per_mu R²: -0.4405
+Epoch 7: val_r2=-0.4405 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 158ms/step - loss: 0.0140 - classification_loss: 0.0000e+00 - regression_loss: 0.0097 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0771 - regression_mse: 0.0195 - val_loss: 0.0055 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0012 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0259 - val_regression_mse: 0.0023 - lr: 6.5213e-04 - val_r2: -0.4405
+Epoch 8/20
+157/157 [==============================] - ETA: 0s - loss: 0.0128 - classification_loss: 0.0000e+00 - regression_loss: 0.0085 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0746 - regression_mse: 0.0171Epoch 8 - 预测值范围: min=4.000000, max=8.000000
+Epoch 8 - 真实值范围: min=4.643750, max=7.569675
+Epoch 8 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 8 - per_mu R²: -0.2674
+Epoch 8: val_r2=-0.2674 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 159ms/step - loss: 0.0128 - classification_loss: 0.0000e+00 - regression_loss: 0.0085 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0746 - regression_mse: 0.0171 - val_loss: 0.0053 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0011 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0256 - val_regression_mse: 0.0021 - lr: 5.2170e-04 - val_r2: -0.2674
+Epoch 9/20
+157/157 [==============================] - ETA: 0s - loss: 0.0145 - classification_loss: 0.0000e+00 - regression_loss: 0.0102 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0777 - regression_mse: 0.0204Epoch 9 - 预测值范围: min=4.000000, max=8.000000
+Epoch 9 - 真实值范围: min=4.643750, max=7.569675
+Epoch 9 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 9 - per_mu R²: -0.1920
+Epoch 9: val_r2=-0.1920 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 160ms/step - loss: 0.0145 - classification_loss: 0.0000e+00 - regression_loss: 0.0102 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0777 - regression_mse: 0.0204 - val_loss: 0.0053 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0010 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0275 - val_regression_mse: 0.0021 - lr: 4.1736e-04 - val_r2: -0.1920
+Epoch 10/20
+157/157 [==============================] - ETA: 0s - loss: 0.0137 - classification_loss: 0.0000e+00 - regression_loss: 0.0094 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0772 - regression_mse: 0.0188Epoch 10 - 预测值范围: min=4.000000, max=7.795506
+Epoch 10 - 真实值范围: min=4.643750, max=7.569675
+Epoch 10 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 10 - per_mu R²: -0.4265
+Epoch 10: val_r2=-0.4265 < 0.1, bad_epochs=1
+157/157 [==============================] - 25s 158ms/step - loss: 0.0137 - classification_loss: 0.0000e+00 - regression_loss: 0.0094 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0772 - regression_mse: 0.0188 - val_loss: 0.0056 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0013 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0302 - val_regression_mse: 0.0026 - lr: 3.3389e-04 - val_r2: -0.4265
+Epoch 11/20
+157/157 [==============================] - ETA: 0s - loss: 0.0115 - classification_loss: 0.0000e+00 - regression_loss: 0.0072 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0668 - regression_mse: 0.0144Epoch 11 - 预测值范围: min=4.000000, max=7.703770
+Epoch 11 - 真实值范围: min=4.643750, max=7.569675
+Epoch 11 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 11 - per_mu R²: -0.1341
+Epoch 11: val_r2=-0.1341 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 157ms/step - loss: 0.0115 - classification_loss: 0.0000e+00 - regression_loss: 0.0072 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0668 - regression_mse: 0.0144 - val_loss: 0.0054 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0011 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0265 - val_regression_mse: 0.0022 - lr: 2.6711e-04 - val_r2: -0.1341
+Epoch 12/20
+157/157 [==============================] - ETA: 0s - loss: 0.0127 - classification_loss: 0.0000e+00 - regression_loss: 0.0084 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0674 - regression_mse: 0.0168Epoch 12 - 预测值范围: min=4.000000, max=7.970360
+Epoch 12 - 真实值范围: min=4.643750, max=7.569675
+Epoch 12 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 12 - per_mu R²: -0.5572
+Epoch 12: val_r2=-0.5572 < 0.1, bad_epochs=1
+157/157 [==============================] - 25s 160ms/step - loss: 0.0127 - classification_loss: 0.0000e+00 - regression_loss: 0.0084 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0674 - regression_mse: 0.0168 - val_loss: 0.0055 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0013 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0276 - val_regression_mse: 0.0026 - lr: 2.1369e-04 - val_r2: -0.5572
+Epoch 13/20
+157/157 [==============================] - ETA: 0s - loss: 0.0121 - classification_loss: 0.0000e+00 - regression_loss: 0.0078 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0650 - regression_mse: 0.0156Epoch 13 - 预测值范围: min=4.000000, max=7.955890
+Epoch 13 - 真实值范围: min=4.643750, max=7.569675
+Epoch 13 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 13 - per_mu R²: -0.3459
+Epoch 13: val_r2=-0.3459 < 0.1, bad_epochs=2
+157/157 [==============================] - 25s 160ms/step - loss: 0.0121 - classification_loss: 0.0000e+00 - regression_loss: 0.0078 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0650 - regression_mse: 0.0156 - val_loss: 0.0053 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0011 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0238 - val_regression_mse: 0.0021 - lr: 1.7095e-04 - val_r2: -0.3459
+Epoch 14/20
+157/157 [==============================] - ETA: 0s - loss: 0.0112 - classification_loss: 0.0000e+00 - regression_loss: 0.0069 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0625 - regression_mse: 0.0138Epoch 14 - 预测值范围: min=4.000000, max=8.000000
+Epoch 14 - 真实值范围: min=4.643750, max=7.569675
+Epoch 14 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 14 - per_mu R²: -0.3075
+Epoch 14: val_r2=-0.3075 < 0.1, bad_epochs=3
+Early stopping: val_r2低于0.1已连续3个epoch
+157/157 [==============================] - 25s 162ms/step - loss: 0.0112 - classification_loss: 0.0000e+00 - regression_loss: 0.0069 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0625 - regression_mse: 0.0138 - val_loss: 0.0053 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0011 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0236 - val_regression_mse: 0.0021 - lr: 1.3676e-04 - val_r2: -0.3075
+32/32 [==============================] - 1s 17ms/step
+
+第 1 折结果:
+分类准确率: 1.0000
+per_mu R2 分数: -0.3075
+回归 MAE: 0.0236
+
+训练第 2/2 折...
+🔧 交叉验证第2折: 应用数据量控制...
+  验证集采样: 2,500 -> 1,000
+  ✅ 验证集采样完成: (1000, 87)
+  🎯 第2折最终数据量: 训练集=2,500, 验证集=1,000
+
+训练模型 1/1...
+
+Extracting XGBoost features...
+使用全部训练数据: 2,500 个样本
+使用全部验证数据: 1,000 个样本
+Only one class found: 0.0, switching to regression mode
+Number of classes: 1
+Training XGBoost model...
+Training XGBoost: 100%|██████████| 15/15 [00:00<00:00, 424.74it/s]
+Saving XGBoost model...
+XGBoost model successfully saved to: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\XGBoostAA\xgb_model_AA.json
+Extracting leaf features (chunked)...
+XGBoost feature extraction completed successfully.
+
+开始Optuna超参数优化...
+输入数据验证:
+X_train shape: (2500, 88), dtype: unknown
+X_val shape: (1000, 88), dtype: unknown
+y_reg_train shape: (2500, 2)
+y_reg_val shape: (1000, 2)
+训练集目标变量统计:
+            per_qu       per_mu
+count  2500.000000  2500.000000
+mean      7.280140     4.790479
+std       0.049764     0.049391
+min       7.132205     4.643750
+25%       7.247595     4.758177
+50%       7.275458     4.785824
+75%       7.307466     4.817590
+max       7.569675     5.078086
+验证集目标变量统计:
+            per_qu       per_mu
+count  1000.000000  1000.000000
+mean      7.278689     4.789037
+std       0.045661     0.045318
+min       7.173409     4.684597
+25%       7.249180     4.759749
+50%       7.273493     4.783874
+75%       7.302020     4.812184
+max       7.501375     5.010191
+标签NaN检查 - 训练: per_qu    0
+per_mu    0
+dtype: int64, 验证: per_qu    0
+per_mu    0
+dtype: int64
+最终数据质量检查...
+数据清理完成，开始Optuna优化...
+[I 2025-10-14 18:32:00,576] A new study created in memory with name: no-name-277de993-b054-4bdf-b3d1-90511fb75440
+🔍 R²计算调试信息:
+   真实值范围: [7.1734, 7.5014]
+   预测值范围: [7.3003, 7.6568]
+   真实值均值: 7.2787, 标准差: 0.0456
+   预测值均值: 7.5607, 标准差: 0.0659
+Epoch 1: R²=-42.2275, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -42.227537256728056
+💾 模型已保存: model_trial_0_epoch_1_r2_-42.2275.h5 (R²=-42.2275)
+Epoch 2: R²=-5.6833, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -5.683333573962823
+💾 模型已保存: model_trial_0_epoch_2_r2_-5.6833.h5 (R²=-5.6833)
+Epoch 3: R²=-2.3481, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -2.348115529219089
+💾 模型已保存: model_trial_0_epoch_3_r2_-2.3481.h5 (R²=-2.3481)
+Epoch 4: R²=-13.1328, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_4_r2_-13.1328.h5 (R²=-13.1328)
+
+Epoch 5: ReduceLROnPlateau reducing learning rate to 0.0030247877351939675.
+Epoch 5: R²=-5.7491, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_5_r2_-5.7491.h5 (R²=-5.7491)
+Epoch 6: R²=-0.5879, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_6_r2_-0.5879.h5 (R²=-0.5879)
+Epoch 7: R²=-0.3229, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_0_epoch_7_r2_-0.3229.h5 (R²=-0.3229)
+[I 2025-10-14 18:35:23,567] Trial 0 finished with value: 0.001 and parameters: {'lr': 0.0043211251738286115, 'neurons1': 92, 'neurons2': 51, 'dropout_rate': 0.14799012208685053, 'batch_size': 16, 'attention_units': 22, 'l1_lambda': 1.5435208880660336e-08, 'l2_lambda': 4.0587915294732924e-08, 'optimizer_type': 'adam', 'activation': 'gelu'}. Best is trial 0 with value: 0.001.
+Epoch 8: R²=0.8376, Best R²=0.8376, 阈值=0.7
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.8376, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.0043211251738286115, 'neurons1': 92, 'neurons2': 51, 'dropout_rate': 0.14799012208685053, 'batch_size': 16, 'attention_units': 22, 'l1_lambda': 1.5435208880660336e-08, 'l2_lambda': 4.0587915294732924e-08, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.8376457534232116
+🎯 Trial 0 已标记为R²达到0.7
+🎯 R²达到0.8376，停止调参训练！
+🔍 R²计算调试信息:
+   真实值范围: [7.1734, 7.5014]
+   预测值范围: [7.1417, 7.4277]
+   真实值均值: 7.2787, 标准差: 0.0456
+   预测值均值: 7.2931, 标准差: 0.0642
+Epoch 1: R²=0.5409, Best R²=0.5409, 阈值=0.7
+🔍 调试: logs['val_r2'] = 0.5408862800720413
+💾 模型已保存: model_trial_1_epoch_1_r2_0.5409.h5 (R²=0.5409)
+Epoch 2: R²=-1.2341, Best R²=0.5409, 阈值=0.7
+🔍 调试: logs['val_r2'] = -1.2340657589302784
+💾 模型已保存: model_trial_1_epoch_2_r2_-1.2341.h5 (R²=-1.2341)
+Epoch 3: R²=0.7309, Best R²=0.7309, 阈值=0.7
+🔍 调试: logs['val_r2'] = 0.7308624557643351
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.7309, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.017408506876438242, 'neurons1': 85, 'neurons2': 101, 'dropout_rate': 0.05281701005263739, 'batch_size': 8, 'attention_units': 25, 'l1_lambda': 2.12132817397613e-08, 'l2_lambda': 3.597951979606974e-08, 'optimizer_type': 'adam', 'activation': 'swish'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.7308624557643351
+🎯 Trial 1 已标记为R²达到0.7
+🎯 R²达到0.7309，停止调参训练！
+[I 2025-10-14 18:37:40,962] Trial 1 finished with value: 0.001 and parameters: {'lr': 0.017408506876438242, 'neurons1': 85, 'neurons2': 101, 'dropout_rate': 0.05281701005263739, 'batch_size': 8, 'attention_units': 25, 'l1_lambda': 2.12132817397613e-08, 'l2_lambda': 3.597951979606974e-08, 'optimizer_type': 'adam', 'activation': 'swish'}. Best is trial 0 with value: 0.001.
+🔍 R²计算调试信息:
+   真实值范围: [7.1734, 7.5014]
+   预测值范围: [4.0000, 4.0000]
+   真实值均值: 7.2787, 标准差: 0.0456
+   预测值均值: 4.0000, 标准差: 0.0000
+警告: 预测值方差为0，设置R²为-1000
+Epoch 1: R²=-1000.0000, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -1000
+💾 模型已保存: model_trial_2_epoch_1_r2_-1000.0000.h5 (R²=-1000.0000)
+⚠️ 验证损失连续增加！最近3个epoch: [0.0011836489429697394, 0.0027558915317058563, 1.5519688129425049]
+Epoch 2: R²=-100.0000, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -100
+💾 模型已保存: model_trial_2_epoch_2_r2_-100.0000.h5 (R²=-100.0000)
+Epoch 3: R²=-95.0223, Best R²=0.0000, 阈值=0.7
+🔍 调试: logs['val_r2'] = -95.02226643467097
+💾 模型已保存: model_trial_2_epoch_3_r2_-95.0223.h5 (R²=-95.0223)
+Epoch 4: R²=-9.3542, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_4_r2_-9.3542.h5 (R²=-9.3542)
+Epoch 5: R²=-0.0191, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_5_r2_-0.0191.h5 (R²=-0.0191)
+Epoch 6: R²=-1.0529, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_6_r2_-1.0529.h5 (R²=-1.0529)
+Epoch 7: R²=-0.0884, Best R²=0.0000, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_7_r2_-0.0884.h5 (R²=-0.0884)
+Epoch 8: R²=0.2118, Best R²=0.2118, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_8_r2_0.2118.h5 (R²=0.2118)
+Epoch 9: R²=0.3924, Best R²=0.3924, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_9_r2_0.3924.h5 (R²=0.3924)
+Epoch 10: R²=-0.7055, Best R²=0.3924, 阈值=0.7
+💾 模型已保存: model_trial_2_epoch_10_r2_-0.7055.h5 (R²=-0.7055)
+[I 2025-10-14 18:40:14,766] Trial 2 finished with value: 0.001 and parameters: {'lr': 0.002284242400056513, 'neurons1': 220, 'neurons2': 44, 'dropout_rate': 0.12791473701557055, 'batch_size': 32, 'attention_units': 22, 'l1_lambda': 2.1595758821232082e-07, 'l2_lambda': 6.194082327866978e-08, 'optimizer_type': 'adam', 'activation': 'gelu'}. Best is trial 0 with value: 0.001.
+Epoch 11: R²=0.7479, Best R²=0.7479, 阈值=0.7
+🎯 R²达到0.7，停止调参训练，进入最终模型训练！
+当前R²: 0.7479, 阈值: 0.7
+🎯 全局最佳参数已保存: {'lr': 0.002284242400056513, 'neurons1': 220, 'neurons2': 44, 'dropout_rate': 0.12791473701557055, 'batch_size': 32, 'attention_units': 22, 'l1_lambda': 2.1595758821232082e-07, 'l2_lambda': 6.194082327866978e-08, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 全局R²状态: GLOBAL_R2_ACHIEVED=True, GLOBAL_BEST_R2=0.7478608975144381
+🎯 Trial 2 已标记为R²达到0.7
+🎯 R²达到0.7479，停止调参训练！
+
+最佳超参数: {'lr': 0.0043211251738286115, 'neurons1': 92, 'neurons2': 51, 'dropout_rate': 0.14799012208685053, 'batch_size': 16, 'attention_units': 22, 'l1_lambda': 1.5435208880660336e-08, 'l2_lambda': 4.0587915294732924e-08, 'optimizer_type': 'adam', 'activation': 'gelu'}
+🎯 发现R²达到0.7的试验: 试验0, R²=0.8376
+
+使用最佳参数训练最终模型...
+使用参数: 全局最佳参数
+Epoch 1/20
+157/157 [==============================] - ETA: 0s - loss: 0.0979 - classification_loss: 0.0000e+00 - regression_loss: 0.0977 - classification_accuracy: 0.0000e+00 - regression_mae: 0.3267 - regression_mse: 0.2089💾 最佳模型已保存: final_model_r2_0.0000.h5 (R²=0.0000, val_r2=inf)
+Epoch 1 - 预测值范围: min=4.000000, max=6.875057
+Epoch 1 - 真实值范围: min=4.684597, max=7.501375
+Epoch 1 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 1 - per_mu R²: -66.9671
+Epoch 1: val_r2=-66.9671 < 0.1, bad_epochs=0
+157/157 [==============================] - 39s 174ms/step - loss: 0.0979 - classification_loss: 0.0000e+00 - regression_loss: 0.0977 - classification_accuracy: 0.0000e+00 - regression_mae: 0.3267 - regression_mse: 0.2089 - val_loss: 0.9391 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.9389 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 1.3377 - val_regression_mse: 3.0113 - lr: 0.0043 - val_r2: -66.9671
+Epoch 2/20
+157/157 [==============================] - ETA: 0s - loss: 0.0131 - classification_loss: 0.0000e+00 - regression_loss: 0.0129 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1063 - regression_mse: 0.0258Epoch 2 - 预测值范围: min=4.628733, max=7.440093
+Epoch 2 - 真实值范围: min=4.684597, max=7.501375
+Epoch 2 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 2 - per_mu R²: -1.9308
+Epoch 2: val_r2=-1.9308 < 0.1, bad_epochs=0
+157/157 [==============================] - 25s 157ms/step - loss: 0.0131 - classification_loss: 0.0000e+00 - regression_loss: 0.0129 - classification_accuracy: 0.0000e+00 - regression_mae: 0.1063 - regression_mse: 0.0258 - val_loss: 0.0022 - val_classification_loss: 0.0000e+00 - val_regression_loss: 0.0020 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0407 - val_regression_mse: 0.0039 - lr: 0.0043 - val_r2: -1.9308
+Epoch 3/20
+157/157 [==============================] - ETA: 0s - loss: 0.0059 - classification_loss: 0.0000e+00 - regression_loss: 0.0057 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0625 - regression_mse: 0.0115Epoch 3 - 预测值范围: min=4.695828, max=7.385027
+Epoch 3 - 真实值范围: min=4.684597, max=7.501375
+Epoch 3 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 3 - per_mu R²: 0.4168
+模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.4168.h5
+✅ Epoch 3: R²=0.4168 >= 0.1, 模型已保存到: final_model_r2_r2_0.4168.h5
+Epoch 3: val_r2=0.4168 >= 0.1
+157/157 [==============================] - 26s 165ms/step - loss: 0.0059 - classification_loss: 0.0000e+00 - regression_loss: 0.0057 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0625 - regression_mse: 0.0115 - val_loss: 6.3224e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 4.2870e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0200 - val_regression_mse: 8.5739e-04 - lr: 0.0043 - val_r2: 0.4168
+Epoch 4/20
+157/157 [==============================] - ETA: 0s - loss: 0.0020 - classification_loss: 0.0000e+00 - regression_loss: 0.0018 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0367 - regression_mse: 0.0036Epoch 4 - 预测值范围: min=4.718663, max=7.503249
+Epoch 4 - 真实值范围: min=4.684597, max=7.501375
+Epoch 4 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 4 - per_mu R²: 0.6299
+模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.6299.h5
+✅ Epoch 4: R²=0.6299 >= 0.1, 模型已保存到: final_model_r2_r2_0.6299.h5
+Epoch 4: val_r2=0.6299 >= 0.1
+157/157 [==============================] - 25s 161ms/step - loss: 0.0020 - classification_loss: 0.0000e+00 - regression_loss: 0.0018 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0367 - regression_mse: 0.0036 - val_loss: 7.0087e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 4.9738e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0247 - val_regression_mse: 9.9476e-04 - lr: 0.0043 - val_r2: 0.6299
+Epoch 5/20
+157/157 [==============================] - ETA: 0s - loss: 0.0010 - classification_loss: 0.0000e+00 - regression_loss: 8.0971e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0262 - regression_mse: 0.0016Epoch 5 - 预测值范围: min=4.716679, max=7.483246
+Epoch 5 - 真实值范围: min=4.684597, max=7.501375
+Epoch 5 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 5 - per_mu R²: 0.7411
+模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.7411.h5
+✅ Epoch 5: R²=0.7411 >= 0.1, 模型已保存到: final_model_r2_r2_0.7411.h5
+Epoch 5: val_r2=0.7411 >= 0.1
+157/157 [==============================] - 25s 160ms/step - loss: 0.0010 - classification_loss: 0.0000e+00 - regression_loss: 8.0971e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0262 - regression_mse: 0.0016 - val_loss: 4.8083e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 2.7746e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0178 - val_regression_mse: 5.5493e-04 - lr: 0.0043 - val_r2: 0.7411
+Epoch 6/20
+157/157 [==============================] - ETA: 0s - loss: 6.8792e-04 - classification_loss: 0.0000e+00 - regression_loss: 4.8446e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0213 - regression_mse: 9.6891e-04Epoch 6 - 预测值范围: min=4.692372, max=7.462959
+Epoch 6 - 真实值范围: min=4.684597, max=7.501375
+Epoch 6 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 6 - per_mu R²: 0.8536
+模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.8536.h5
+✅ Epoch 6: R²=0.8536 >= 0.1, 模型已保存到: final_model_r2_r2_0.8536.h5
+Epoch 6: val_r2=0.8536 >= 0.1
+157/157 [==============================] - 25s 158ms/step - loss: 6.8792e-04 - classification_loss: 0.0000e+00 - regression_loss: 4.8446e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0213 - regression_mse: 9.6891e-04 - val_loss: 3.8074e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 1.7722e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0143 - val_regression_mse: 3.5443e-04 - lr: 0.0035 - val_r2: 0.8536
+Epoch 7/20
+157/157 [==============================] - ETA: 0s - loss: 5.6973e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.6621e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0187 - regression_mse: 7.3243e-04Epoch 7 - 预测值范围: min=4.691620, max=7.435529
+Epoch 7 - 真实值范围: min=4.684597, max=7.501375
+Epoch 7 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 7 - per_mu R²: 0.9196
+模型已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.9196.h5
+✅ Epoch 7: R²=0.9196 >= 0.1, 模型已保存到: final_model_r2_r2_0.9196.h5
+Epoch 7: val_r2=0.9196 >= 0.1
+157/157 [==============================] - 25s 158ms/step - loss: 5.6973e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.6621e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0187 - regression_mse: 7.3243e-04 - val_loss: 2.8714e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 8.3627e-05 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0091 - val_regression_mse: 1.6725e-04 - lr: 0.0028 - val_r2: 0.9196
+Epoch 8/20
+157/157 [==============================] - ETA: 0s - loss: 5.6524e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.6175e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0189 - regression_mse: 7.2350e-04Epoch 8 - 预测值范围: min=4.694766, max=7.459096
+Epoch 8 - 真实值范围: min=4.684597, max=7.501375
+Epoch 8 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 8 - per_mu R²: 0.9156
+Epoch 8: val_r2=0.9156 >= 0.1
+157/157 [==============================] - 25s 156ms/step - loss: 5.6524e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.6175e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0189 - regression_mse: 7.2350e-04 - val_loss: 2.9209e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 8.8611e-05 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0098 - val_regression_mse: 1.7722e-04 - lr: 0.0022 - val_r2: 0.9156
+Epoch 9/20
+157/157 [==============================] - ETA: 0s - loss: 5.1471e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.1126e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0178 - regression_mse: 6.2253e-04Epoch 9 - 预测值范围: min=4.692424, max=7.447871
+Epoch 9 - 真实值范围: min=4.684597, max=7.501375
+Epoch 9 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 9 - per_mu R²: 0.8870
+Epoch 9: val_r2=0.8870 >= 0.1
+157/157 [==============================] - 24s 155ms/step - loss: 5.1471e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.1126e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0178 - regression_mse: 6.2253e-04 - val_loss: 3.1704e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 1.1362e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0112 - val_regression_mse: 2.2724e-04 - lr: 0.0018 - val_r2: 0.8870
+Epoch 10/20
+157/157 [==============================] - ETA: 0s - loss: 5.0541e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.0202e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0175 - regression_mse: 6.0403e-04Epoch 10 - 预测值范围: min=4.708643, max=7.539400
+Epoch 10 - 真实值范围: min=4.684597, max=7.501375
+Epoch 10 - 预测值形状: (1000, 2), 真实值形状: (1000, 2)
+Epoch 10 - per_mu R²: 0.6891
+Epoch 10: val_r2=0.6891 >= 0.1
+Early stopping: val_r2低于0.1已连续3个epoch
+157/157 [==============================] - 24s 154ms/step - loss: 5.0541e-04 - classification_loss: 0.0000e+00 - regression_loss: 3.0202e-04 - classification_accuracy: 0.0000e+00 - regression_mae: 0.0175 - regression_mse: 6.0403e-04 - val_loss: 5.1418e-04 - val_classification_loss: 0.0000e+00 - val_regression_loss: 3.1080e-04 - val_classification_accuracy: 0.0000e+00 - val_regression_mae: 0.0188 - val_regression_mse: 6.2161e-04 - lr: 0.0014 - val_r2: 0.6891
+32/32 [==============================] - 1s 16ms/step
+
+第 2 折结果:
+分类准确率: 1.0000
+per_mu R2 分数: 0.6891
+回归 MAE: 0.0188
+
+交叉验证平均分数:
+分类准确率: 1.0000 ± 0.0000
+per_mu R2 分数: 0.1908 ± 0.4983
+回归 MAE: 0.0212 ± 0.0024
+注意：R²值只计算per_mu，per_qu权重为0
+
+9. 特征提取和组合...
+使用采样后训练数据: 5,000 个样本
+使用采样后验证数据: 1,000 个样本
+
+Extracting XGBoost features...
+使用全部训练数据: 5,000 个样本
+使用全部验证数据: 1,000 个样本
+Training XGBoost:   0%|          | 0/15 [00:00<?, ?it/s]Only one class found: 0.0, switching to regression mode
+Number of classes: 1
+Training XGBoost model...
+Training XGBoost: 100%|██████████| 15/15 [00:00<00:00, 247.99it/s]
+Saving XGBoost model...
+XGBoost model successfully saved to: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\XGBoostAA\xgb_model_AA.json
+Extracting leaf features (chunked)...
+XGBoost feature extraction completed successfully.
+
+10. 处理验证集特征...
+训练集特征形状: (5000, 88)
+验证集特征形状: (1000, 88)
+训练集标签形状: y_cls=(5000,), y_reg=(5000, 2)
+验证集标签形状: y_cls=(1000,), y_reg=(1000, 2)
+
+11. 训练最终模型...
+🔍 目录 C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA 中的所有文件:
+  - final_model_r2_0.0000.h5
+  - final_model_r2_r2_0.9196.h5
+  - model_trial_0_epoch_1_r2_-100.0000.h5
+  - model_trial_0_epoch_1_r2_-42.2275.h5
+  - model_trial_0_epoch_2_r2_-4.3615.h5
+  - model_trial_0_epoch_2_r2_-5.6833.h5
+  - model_trial_0_epoch_3_r2_-2.3481.h5
+  - model_trial_0_epoch_3_r2_-25.0756.h5
+  - model_trial_0_epoch_4_r2_-0.8714.h5
+  - model_trial_0_epoch_4_r2_-13.1328.h5
+  - model_trial_0_epoch_5_r2_-1.5015.h5
+  - model_trial_0_epoch_5_r2_-5.7491.h5
+  - model_trial_0_epoch_6_r2_-0.5879.h5
+  - model_trial_0_epoch_6_r2_0.5219.h5
+  - model_trial_0_epoch_7_r2_-0.3229.h5
+  - model_trial_1_epoch_1_r2_-1000.0000.h5
+  - model_trial_1_epoch_1_r2_0.5409.h5
+  - model_trial_1_epoch_2_r2_-1.2341.h5
+  - model_trial_1_epoch_2_r2_-36.2990.h5
+  - model_trial_1_epoch_3_r2_-0.6931.h5
+  - model_trial_1_epoch_4_r2_0.6511.h5
+  - model_trial_2_epoch_10_r2_-0.7055.h5
+  - model_trial_2_epoch_1_r2_-100.0000.h5
+  - model_trial_2_epoch_1_r2_-1000.0000.h5
+  - model_trial_2_epoch_2_r2_-1.3235.h5
+  - model_trial_2_epoch_2_r2_-100.0000.h5
+  - model_trial_2_epoch_3_r2_-95.0223.h5
+  - model_trial_2_epoch_4_r2_-9.3542.h5
+  - model_trial_2_epoch_5_r2_-0.0191.h5
+  - model_trial_2_epoch_6_r2_-1.0529.h5
+  - model_trial_2_epoch_7_r2_-0.0884.h5
+  - model_trial_2_epoch_8_r2_0.2118.h5
+  - model_trial_2_epoch_9_r2_0.3924.h5
+🔍 找到 33 个包含 r2_ 格式的模型文件
+🔍 扫描 33 个模型文件，寻找最佳模型...
+  📊 找到更好的模型: final_model_r2_r2_0.9196.h5 (R²=0.9196)
+🎯 使用最佳模型: final_model_r2_r2_0.9196.h5 (R²=0.9196) - 性能优秀!
+成功加载模型: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\modelAA\final_model_r2_r2_0.9196.h5
+✅ 成功加载最佳模型
+
+12. 分析特征重要性...
+
+计算特征重要性...
+使用全部特征进行重要性计算: 88 个特征
+🔍 检查特征相关性...
+⚠️ 发现 25 对高相关性特征 (>0.95):
+  1 <-> 32: 1.0000
+  36 <-> 19: 1.0000
+  11 <-> 22: 0.9931
+  10 <-> 46: 0.9619
+  10 <-> pca_0: 0.9696
+  10 <-> right_y_original: 0.9710
+  10 <-> 29: 0.9707
+  14 <-> 25: 0.9598
+  38 <-> 34: 0.9659
+  33 <-> 45: 0.9507
+  ... 还有 15 对高相关性特征
+使用XGBoost的特征重要性计算方法...
+XGBoost特征重要性计算失败: 无法获取XGBoost特征重要性分数
+✅ 使用方差作为特征重要性: 88 个特征
+警告：特征重要性长度(88)与特征名长度(50)不匹配
+调整特征名列表长度以匹配特征重要性长度
+添加了 38 个特征名
+
+找到 10 个关键特征:
+1. 30 (重要性: 0.0468, 相对重要性: 0.0468)
+2. feature_73 (重要性: 0.0326, 相对重要性: 0.0326)
+3. 46 (重要性: 0.0298, 相对重要性: 0.0298)
+4. feature_58 (重要性: 0.0295, 相对重要性: 0.0295)
+5. 48 (重要性: 0.0292, 相对重要性: 0.0292)
+6. 45 (重要性: 0.0286, 相对重要性: 0.0286)
+7. 31 (重要性: 0.0286, 相对重要性: 0.0286)
+8. 34 (重要性: 0.0281, 相对重要性: 0.0281)
+9. feature_50 (重要性: 0.0279, 相对重要性: 0.0279)
+10. feature_52 (重要性: 0.0272, 相对重要性: 0.0272)
+特征重要性已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\feature_importance_AA.csv
+关键特征列表已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\key_features_AA.json
+特征重要性图已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\feature_importance_plot_AA.png
+原始特征列名已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\feature_importanceAA\original_feature_names.txt
+
+14. 保存训练历史...
+⚠️ final_logsAA目录中未找到训练历史文件: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\final_logsAA\training_history.json
+⚠️ 没有训练历史记录（使用了已存在的模型）
+
+15. 保存特征重要性...
+
+15. 生成预测地图...
+⚠️ 无法找到有效的坐标列，跳过预测地图生成
+可用的列: ['per_qu', 'per_mu', 'suit']
+需要的坐标列应该包含: ['x', 'y'] 或 ['x_product', 'y_product'] 或 ['right_x', 'right_y']
+
+16. 生成分析图表...
+📁 从final_logsAA目录读取训练历史用于图表生成: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\final_logsAA\training_history.json
+✅ 成功从final_logsAA读取训练历史用于图表生成
+📊 使用final_logsAA中的训练历史生成图表...
+🔍 可用的训练历史键: ['message']
+✅ 训练历史图表已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\final_logsAA\training_history_plot.png
+🔍 生成混淆矩阵...
+32/32 [==============================] - 1s 17ms/step
+🔍 混淆矩阵生成数据一致性检查:
+回归预测值范围: [4.6848, 7.4449]
+回归预测值均值: 6.0344
+⚠️ per_mu预测值超出log1p变换后的合理范围 (4.6, 5.1)
+⚠️ per_qu预测值超出log1p变换后的合理范围 (7.1, 7.6)
+🔍 生成回归散点图...
+🔍 生成特征重要性图...
+🔍 生成模型评估报告...
+32/32 [==============================] - 1s 16ms/step
+
+🔍 模型评估数据变换调试:
+真实值范围: [4.6628, 7.5617]
+预测值范围: [4.6848, 7.4449]
+真实值均值: 6.0360, 标准差: 1.2459
+预测值均值: 6.0344, 标准差: 1.2458
+per_mu真实值范围: [4.6628, 5.0702]
+per_mu预测值范围: [4.6848, 4.9547]
+per_qu真实值范围: [7.1514, 7.5617]
+per_qu预测值范围: [7.1725, 7.4449]
+
+模型评估报告:
+
+分类性能:
+准确率: 0.0000
+
+详细分类报告:
+              precision    recall  f1-score   support
+
+         0.0       0.00      0.00      0.00       0.0
+         1.0       0.00      0.00      0.00    1000.0
+
+    accuracy                           0.00    1000.0
+   macro avg       0.00      0.00      0.00    1000.0
+weighted avg       0.00      0.00      0.00    1000.0
+
+
+回归性能:
+
+per_mu (权重=1):
+R² 分数: 0.9011
+MAE: 0.0099
+RMSE: 0.0163
+
+per_qu (权重=0):
+MAE: 0.0098
+RMSE: 0.0160
+注意：R²值只计算per_mu，per_qu权重为0
+✅ 所有分析图表生成完成
+
+=== 预测程序运行完成! ===
+GPU配置: 1个GPU, 策略: None
+结果已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\result_predited_csvAA\result_predited_AA.csv
+训练历史已保存至: C:\Users\Administrator\Desktop\2. B774模型脚本\2-适宜度产量预测模型\model_test_06\final_logsAA\training_history.json
+
+进程已结束，退出代码为 0

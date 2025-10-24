@@ -1,0 +1,89 @@
+feature,importance,relative_importance,original_column_name,data_source,feature_type,description,index
+30,0.046761659714893,0.046761659714893,unknown_feature_30,unknown,unknown,未知特征，索引30,38
+feature_73,0.0325958495060494,0.0325958495060494,XGBoost_leaf_feature_73,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号73,73
+46,0.0297862990484725,0.0297862990484725,unknown_feature_46,unknown,unknown,未知特征，索引46,44
+feature_58,0.029487799873132,0.029487799873132,XGBoost_leaf_feature_58,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号58,58
+48,0.0292057083011158,0.0292057083011158,unknown_feature_48,unknown,unknown,未知特征，索引48,39
+45,0.0286260575911484,0.0286260575911484,unknown_feature_45,unknown,unknown,未知特征，索引45,42
+31,0.0285749230498017,0.0285749230498017,unknown_feature_31,unknown,unknown,未知特征，索引31,37
+34,0.0280960942108157,0.0280960942108157,unknown_feature_34,unknown,unknown,未知特征，索引34,43
+feature_50,0.0279344847415539,0.0279344847415539,XGBoost_leaf_feature_50,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号50,50
+feature_52,0.0271655193939699,0.0271655193939699,XGBoost_leaf_feature_52,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号52,52
+33,0.0269569629960337,0.0269569629960337,unknown_feature_33,unknown,unknown,未知特征，索引33,41
+42,0.0263304455640077,0.0263304455640077,unknown_feature_42,unknown,unknown,未知特征，索引42,49
+38,0.026213959821523,0.026213959821523,unknown_feature_38,unknown,unknown,未知特征，索引38,40
+pca_0,0.0255401247715069,0.0255401247715069,PCA_pca_0,pca,pca_component,PCA降维后的主成分，编号0,45
+feature_78,0.0251934636536849,0.0251934636536849,XGBoost_leaf_feature_78,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号78,78
+49,0.0241137942996046,0.0241137942996046,unknown_feature_49,unknown,unknown,未知特征，索引49,48
+feature_69,0.0240579114423881,0.0240579114423881,XGBoost_leaf_feature_69,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号69,69
+feature_56,0.02363240620573,0.02363240620573,XGBoost_leaf_feature_56,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号56,56
+feature_57,0.0234151894501596,0.0234151894501596,XGBoost_leaf_feature_57,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号57,57
+29,0.0233570591976259,0.0233570591976259,unknown_feature_29,unknown,unknown,未知特征，索引29,47
+right_y_original,0.0227612265180779,0.0227612265180779,unknown_right_y_original,unknown,unknown,未知特征类型: right_y_original,46
+feature_51,0.0227112478140081,0.0227112478140081,XGBoost_leaf_feature_51,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号51,51
+feature_62,0.0226118579952423,0.0226118579952423,XGBoost_leaf_feature_62,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号62,62
+feature_55,0.020963277071906,0.020963277071906,XGBoost_leaf_feature_55,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号55,55
+feature_54,0.0204365063508382,0.0204365063508382,XGBoost_leaf_feature_54,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号54,54
+feature_77,0.0202280587198106,0.0202280587198106,XGBoost_leaf_feature_77,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号77,77
+feature_59,0.0197525314060796,0.0197525314060796,XGBoost_leaf_feature_59,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号59,59
+feature_74,0.0195351082386103,0.0195351082386103,XGBoost_leaf_feature_74,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号74,74
+feature_63,0.0187364104868355,0.0187364104868355,XGBoost_leaf_feature_63,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号63,63
+feature_81,0.0177983620383443,0.0177983620383443,XGBoost_leaf_feature_81,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号81,81
+feature_53,0.0175494660970671,0.0175494660970671,XGBoost_leaf_feature_53,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号53,53
+feature_60,0.0171690354922164,0.0171690354922164,XGBoost_leaf_feature_60,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号60,60
+feature_61,0.0165177374608589,0.0165177374608589,XGBoost_leaf_feature_61,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号61,61
+feature_80,0.0155052356979487,0.0155052356979487,XGBoost_leaf_feature_80,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号80,80
+feature_72,0.0152871640656885,0.0152871640656885,XGBoost_leaf_feature_72,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号72,72
+feature_65,0.0152045199169213,0.0152045199169213,XGBoost_leaf_feature_65,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号65,65
+feature_64,0.0150397995307763,0.0150397995307763,XGBoost_leaf_feature_64,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号64,64
+feature_68,0.014505698276772,0.014505698276772,XGBoost_leaf_feature_68,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号68,68
+feature_67,0.0123433962586531,0.0123433962586531,XGBoost_leaf_feature_67,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号67,67
+feature_85,0.0122061369531571,0.0122061369531571,XGBoost_leaf_feature_85,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号85,85
+feature_75,0.0119444141707405,0.0119444141707405,XGBoost_leaf_feature_75,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号75,75
+feature_70,0.0115972623261538,0.0115972623261538,XGBoost_leaf_feature_70,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号70,70
+feature_82,0.0075233408967229,0.0075233408967229,XGBoost_leaf_feature_82,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号82,82
+feature_71,0.0072355184654092,0.0072355184654092,XGBoost_leaf_feature_71,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号71,71
+feature_83,0.0062388848308746,0.0062388848308746,XGBoost_leaf_feature_83,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号83,83
+22,0.0054598000341244,0.0054598000341244,right_socd,soil,soil_organic_carbon,土壤数据: SOCD -> right_socd,26
+11,0.0052584021781089,0.0052584021781089,right_rain_mean,weather,precipitation,气象数据: Rain_mean -> right_rain_mean,15
+feature_66,0.0034075370736524,0.0034075370736524,XGBoost_leaf_feature_66,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号66,66
+feature_86,0.0031777327096462,0.0031777327096462,XGBoost_leaf_feature_86,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号86,86
+feature_79,0.0026280181653337,0.0026280181653337,XGBoost_leaf_feature_79,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号79,79
+37,0.0022508908509651,0.0022508908509651,unknown_feature_37,unknown,unknown,未知特征，索引37,27
+feature_76,0.0018239301227479,0.0018239301227479,XGBoost_leaf_feature_76,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号76,76
+feature_84,0.0017971719274996,0.0017971719274996,XGBoost_leaf_feature_84,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号84,84
+13,0.0015941045017283,0.0015941045017283,right_gtmax_mean,weather,temperature_max,气象数据: GTmax_mean -> right_gtmax_mean,8
+26,0.0015108335001757,0.0015108335001757,unknown_feature_26,unknown,unknown,未知特征，索引26,28
+8,0.0013054188376185,0.0013054188376185,right_tave_mean,weather,temperature_avg,气象数据: TAVE_mean -> right_tave_mean,13
+44,0.0012467731841186,0.0012467731841186,unknown_feature_44,unknown,unknown,未知特征，索引44,29
+16,0.0010907049272643,0.0010907049272643,right_x,soil,coordinate,土壤数据: x -> right_x,30
+23,0.0008346934772352,0.0008346934772352,right_tk,soil,soil_potassium,土壤数据: TK -> right_tk,31
+5,0.0008031047374525,0.0008031047374525,right_yyyy,weather,year,气象数据: YYYY -> right_yyyy,5
+3,0.0007620135118107,0.0007620135118107,right_lat,weather,latitude,气象数据: Lat -> right_lat,12
+24,0.0005775502054059,0.0005775502054059,right_tnd,soil,soil_nitrogen,土壤数据: TND -> right_tnd,32
+10,0.000446534244052,0.000446534244052,right_tmin_mean,weather,temperature_min,气象数据: Tmin_mean -> right_tmin_mean,19
+43,0.0003413507328436,0.0003413507328436,unknown_feature_43,unknown,unknown,未知特征，索引43,33
+18,0.0003295634798296,0.0003295634798296,right_tz,soil,soil_texture,土壤数据: TZ -> right_tz,23
+25,0.0003232503103233,0.0003232503103233,right_tpd,soil,soil_phosphorus,土壤数据: TPD -> right_tpd,22
+17,0.0003232216505757,0.0003232216505757,right_y,soil,coordinate,土壤数据: y -> right_y,24
+1,0.000321769570677,0.000321769570677,y_product,coordinate,coordinate,产品数据y坐标（纬度）,0
+14,0.0003205820708198,0.0003205820708198,right_gtmin_mean,weather,temperature_min,气象数据: GTmin_mean -> right_gtmin_mean,21
+32,0.0003174316675672,0.0003174316675672,unknown_feature_32,unknown,unknown,未知特征，索引32,16
+0,0.0003150113801709,0.0003150113801709,x_product,coordinate,coordinate,产品数据x坐标（经度）,6
+36,0.0003114568276273,0.0003114568276273,unknown_feature_36,unknown,unknown,未知特征，索引36,1
+19,0.0003114066851398,0.0003114066851398,right_cec,soil,soil_cation_exchange,土壤数据: CEC -> right_cec,17
+35,0.0003083925531204,0.0003083925531204,unknown_feature_35,unknown,unknown,未知特征，索引35,34
+28,0.0002600419053295,0.0002600419053295,unknown_feature_28,unknown,unknown,未知特征，索引28,35
+9,0.0002586268288847,0.0002586268288847,right_tmax_mean,weather,temperature_max,气象数据: Tmax_mean -> right_tmax_mean,20
+40,0.000249454066822,0.000249454066822,unknown_feature_40,unknown,unknown,未知特征，索引40,25
+12,0.0002316447922836,0.0002316447922836,right_gtave_mean,weather,temperature_avg,气象数据: GTAVE_mean -> right_gtave_mean,11
+15,0.0001871055066664,0.0001871055066664,right_sevp_mean,weather,evaporation,气象数据: Sevp_mean -> right_sevp_mean,9
+27,0.0001590908293416,0.0001590908293416,unknown_feature_27,unknown,unknown,未知特征，索引27,36
+6,0.0001567259284039,0.0001567259284039,right_mm,weather,month,气象数据: MM -> right_mm,7
+21,0.0001548115498679,0.0001548115498679,right_soc,soil,soil_organic_carbon,土壤数据: SOC -> right_soc,3
+4,0.0001376187006981,0.0001376187006981,right_altitude,weather,elevation,气象数据: altitude -> right_altitude,10
+7,0.0001348432173513,0.0001348432173513,right_tsun_mean,weather,sunshine,气象数据: Tsun_mean -> right_tsun_mean,2
+41,0.0001234756437827,0.0001234756437827,unknown_feature_41,unknown,unknown,未知特征，索引41,14
+2,0.0,0.0,right_lon,weather,longitude,气象数据: Lon -> right_lon,4
+20,0.0,0.0,right_ph,soil,soil_ph,土壤数据: PH -> right_ph,18
+feature_87,0.0,0.0,XGBoost_leaf_feature_87,xgboost,xgboost_leaf,XGBoost模型叶子节点特征，编号87,87

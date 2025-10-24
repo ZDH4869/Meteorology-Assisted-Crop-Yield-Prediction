@@ -1,0 +1,499 @@
+====================================================================================================
+增强版特征名称映射报告
+基于训练代码深度分析的特征转换过程
+====================================================================================================
+
+1. 特征统计信息:
+   总特征数: 88
+   XGBOOST: 38 个特征
+   UNKNOWN: 23 个特征
+   WEATHER: 14 个特征
+   SOIL: 10 个特征
+   COORDINATE: 2 个特征
+   PCA: 1 个特征
+
+2. 按特征类型统计:
+   XGBOOST_LEAF: 38 个特征
+   UNKNOWN: 23 个特征
+   COORDINATE: 4 个特征
+   SOIL_ORGANIC_CARBON: 2 个特征
+   TEMPERATURE_MAX: 2 个特征
+   TEMPERATURE_AVG: 2 个特征
+   TEMPERATURE_MIN: 2 个特征
+   SOIL_PHOSPHORUS: 1 个特征
+   LONGITUDE: 1 个特征
+   SUNSHINE: 1 个特征
+   ELEVATION: 1 个特征
+   MONTH: 1 个特征
+   EVAPORATION: 1 个特征
+   SOIL_CATION_EXCHANGE: 1 个特征
+   SOIL_NITROGEN: 1 个特征
+   SOIL_TEXTURE: 1 个特征
+   LATITUDE: 1 个特征
+   YEAR: 1 个特征
+   SOIL_POTASSIUM: 1 个特征
+   PRECIPITATION: 1 个特征
+   PCA_COMPONENT: 1 个特征
+   SOIL_PH: 1 个特征
+
+3. 前20个最重要的特征映射:
+----------------------------------------------------------------------------------------------------
+排名   特征名             原始列名                      数据源        特征类型            重要性       
+----------------------------------------------------------------------------------------------------
+1    30              unknown_feature_30        unknown    unknown         0.046762  
+2    feature_73      XGBoost_leaf_feature_73   xgboost    xgboost_leaf    0.032596  
+3    46              unknown_feature_46        unknown    unknown         0.029786  
+4    feature_58      XGBoost_leaf_feature_58   xgboost    xgboost_leaf    0.029488  
+5    48              unknown_feature_48        unknown    unknown         0.029206  
+6    45              unknown_feature_45        unknown    unknown         0.028626  
+7    31              unknown_feature_31        unknown    unknown         0.028575  
+8    34              unknown_feature_34        unknown    unknown         0.028096  
+9    feature_50      XGBoost_leaf_feature_50   xgboost    xgboost_leaf    0.027934  
+10   feature_52      XGBoost_leaf_feature_52   xgboost    xgboost_leaf    0.027166  
+11   33              unknown_feature_33        unknown    unknown         0.026957  
+12   42              unknown_feature_42        unknown    unknown         0.026330  
+13   38              unknown_feature_38        unknown    unknown         0.026214  
+14   pca_0           PCA_pca_0                 pca        pca_component   0.025540  
+15   feature_78      XGBoost_leaf_feature_78   xgboost    xgboost_leaf    0.025193  
+16   49              unknown_feature_49        unknown    unknown         0.024114  
+17   feature_69      XGBoost_leaf_feature_69   xgboost    xgboost_leaf    0.024058  
+18   feature_56      XGBoost_leaf_feature_56   xgboost    xgboost_leaf    0.023632  
+19   feature_57      XGBoost_leaf_feature_57   xgboost    xgboost_leaf    0.023415  
+20   29              unknown_feature_29        unknown    unknown         0.023357  
+
+4. 按数据源分组的详细特征:
+
+WEATHER 数据源 (14 个特征):
+--------------------------------------------------------------------------------
+  11 -> right_rain_mean
+    类型: precipitation, 重要性: 0.005258
+    描述: 气象数据: Rain_mean -> right_rain_mean
+
+  13 -> right_gtmax_mean
+    类型: temperature_max, 重要性: 0.001594
+    描述: 气象数据: GTmax_mean -> right_gtmax_mean
+
+  8 -> right_tave_mean
+    类型: temperature_avg, 重要性: 0.001305
+    描述: 气象数据: TAVE_mean -> right_tave_mean
+
+  5 -> right_yyyy
+    类型: year, 重要性: 0.000803
+    描述: 气象数据: YYYY -> right_yyyy
+
+  3 -> right_lat
+    类型: latitude, 重要性: 0.000762
+    描述: 气象数据: Lat -> right_lat
+
+  10 -> right_tmin_mean
+    类型: temperature_min, 重要性: 0.000447
+    描述: 气象数据: Tmin_mean -> right_tmin_mean
+
+  14 -> right_gtmin_mean
+    类型: temperature_min, 重要性: 0.000321
+    描述: 气象数据: GTmin_mean -> right_gtmin_mean
+
+  9 -> right_tmax_mean
+    类型: temperature_max, 重要性: 0.000259
+    描述: 气象数据: Tmax_mean -> right_tmax_mean
+
+  12 -> right_gtave_mean
+    类型: temperature_avg, 重要性: 0.000232
+    描述: 气象数据: GTAVE_mean -> right_gtave_mean
+
+  15 -> right_sevp_mean
+    类型: evaporation, 重要性: 0.000187
+    描述: 气象数据: Sevp_mean -> right_sevp_mean
+
+  6 -> right_mm
+    类型: month, 重要性: 0.000157
+    描述: 气象数据: MM -> right_mm
+
+  4 -> right_altitude
+    类型: elevation, 重要性: 0.000138
+    描述: 气象数据: altitude -> right_altitude
+
+  7 -> right_tsun_mean
+    类型: sunshine, 重要性: 0.000135
+    描述: 气象数据: Tsun_mean -> right_tsun_mean
+
+  2 -> right_lon
+    类型: longitude, 重要性: 0.000000
+    描述: 气象数据: Lon -> right_lon
+
+
+SOIL 数据源 (10 个特征):
+--------------------------------------------------------------------------------
+  22 -> right_socd
+    类型: soil_organic_carbon, 重要性: 0.005460
+    描述: 土壤数据: SOCD -> right_socd
+
+  16 -> right_x
+    类型: coordinate, 重要性: 0.001091
+    描述: 土壤数据: x -> right_x
+
+  23 -> right_tk
+    类型: soil_potassium, 重要性: 0.000835
+    描述: 土壤数据: TK -> right_tk
+
+  24 -> right_tnd
+    类型: soil_nitrogen, 重要性: 0.000578
+    描述: 土壤数据: TND -> right_tnd
+
+  18 -> right_tz
+    类型: soil_texture, 重要性: 0.000330
+    描述: 土壤数据: TZ -> right_tz
+
+  25 -> right_tpd
+    类型: soil_phosphorus, 重要性: 0.000323
+    描述: 土壤数据: TPD -> right_tpd
+
+  17 -> right_y
+    类型: coordinate, 重要性: 0.000323
+    描述: 土壤数据: y -> right_y
+
+  19 -> right_cec
+    类型: soil_cation_exchange, 重要性: 0.000311
+    描述: 土壤数据: CEC -> right_cec
+
+  21 -> right_soc
+    类型: soil_organic_carbon, 重要性: 0.000155
+    描述: 土壤数据: SOC -> right_soc
+
+  20 -> right_ph
+    类型: soil_ph, 重要性: 0.000000
+    描述: 土壤数据: PH -> right_ph
+
+
+COORDINATE 数据源 (2 个特征):
+--------------------------------------------------------------------------------
+  1 -> y_product
+    类型: coordinate, 重要性: 0.000322
+    描述: 产品数据y坐标（纬度）
+
+  0 -> x_product
+    类型: coordinate, 重要性: 0.000315
+    描述: 产品数据x坐标（经度）
+
+
+XGBOOST 数据源 (38 个特征):
+--------------------------------------------------------------------------------
+  feature_73 -> XGBoost_leaf_feature_73
+    类型: xgboost_leaf, 重要性: 0.032596
+    描述: XGBoost模型叶子节点特征，编号73
+
+  feature_58 -> XGBoost_leaf_feature_58
+    类型: xgboost_leaf, 重要性: 0.029488
+    描述: XGBoost模型叶子节点特征，编号58
+
+  feature_50 -> XGBoost_leaf_feature_50
+    类型: xgboost_leaf, 重要性: 0.027934
+    描述: XGBoost模型叶子节点特征，编号50
+
+  feature_52 -> XGBoost_leaf_feature_52
+    类型: xgboost_leaf, 重要性: 0.027166
+    描述: XGBoost模型叶子节点特征，编号52
+
+  feature_78 -> XGBoost_leaf_feature_78
+    类型: xgboost_leaf, 重要性: 0.025193
+    描述: XGBoost模型叶子节点特征，编号78
+
+  feature_69 -> XGBoost_leaf_feature_69
+    类型: xgboost_leaf, 重要性: 0.024058
+    描述: XGBoost模型叶子节点特征，编号69
+
+  feature_56 -> XGBoost_leaf_feature_56
+    类型: xgboost_leaf, 重要性: 0.023632
+    描述: XGBoost模型叶子节点特征，编号56
+
+  feature_57 -> XGBoost_leaf_feature_57
+    类型: xgboost_leaf, 重要性: 0.023415
+    描述: XGBoost模型叶子节点特征，编号57
+
+  feature_51 -> XGBoost_leaf_feature_51
+    类型: xgboost_leaf, 重要性: 0.022711
+    描述: XGBoost模型叶子节点特征，编号51
+
+  feature_62 -> XGBoost_leaf_feature_62
+    类型: xgboost_leaf, 重要性: 0.022612
+    描述: XGBoost模型叶子节点特征，编号62
+
+  feature_55 -> XGBoost_leaf_feature_55
+    类型: xgboost_leaf, 重要性: 0.020963
+    描述: XGBoost模型叶子节点特征，编号55
+
+  feature_54 -> XGBoost_leaf_feature_54
+    类型: xgboost_leaf, 重要性: 0.020437
+    描述: XGBoost模型叶子节点特征，编号54
+
+  feature_77 -> XGBoost_leaf_feature_77
+    类型: xgboost_leaf, 重要性: 0.020228
+    描述: XGBoost模型叶子节点特征，编号77
+
+  feature_59 -> XGBoost_leaf_feature_59
+    类型: xgboost_leaf, 重要性: 0.019753
+    描述: XGBoost模型叶子节点特征，编号59
+
+  feature_74 -> XGBoost_leaf_feature_74
+    类型: xgboost_leaf, 重要性: 0.019535
+    描述: XGBoost模型叶子节点特征，编号74
+
+  feature_63 -> XGBoost_leaf_feature_63
+    类型: xgboost_leaf, 重要性: 0.018736
+    描述: XGBoost模型叶子节点特征，编号63
+
+  feature_81 -> XGBoost_leaf_feature_81
+    类型: xgboost_leaf, 重要性: 0.017798
+    描述: XGBoost模型叶子节点特征，编号81
+
+  feature_53 -> XGBoost_leaf_feature_53
+    类型: xgboost_leaf, 重要性: 0.017549
+    描述: XGBoost模型叶子节点特征，编号53
+
+  feature_60 -> XGBoost_leaf_feature_60
+    类型: xgboost_leaf, 重要性: 0.017169
+    描述: XGBoost模型叶子节点特征，编号60
+
+  feature_61 -> XGBoost_leaf_feature_61
+    类型: xgboost_leaf, 重要性: 0.016518
+    描述: XGBoost模型叶子节点特征，编号61
+
+  feature_80 -> XGBoost_leaf_feature_80
+    类型: xgboost_leaf, 重要性: 0.015505
+    描述: XGBoost模型叶子节点特征，编号80
+
+  feature_72 -> XGBoost_leaf_feature_72
+    类型: xgboost_leaf, 重要性: 0.015287
+    描述: XGBoost模型叶子节点特征，编号72
+
+  feature_65 -> XGBoost_leaf_feature_65
+    类型: xgboost_leaf, 重要性: 0.015205
+    描述: XGBoost模型叶子节点特征，编号65
+
+  feature_64 -> XGBoost_leaf_feature_64
+    类型: xgboost_leaf, 重要性: 0.015040
+    描述: XGBoost模型叶子节点特征，编号64
+
+  feature_68 -> XGBoost_leaf_feature_68
+    类型: xgboost_leaf, 重要性: 0.014506
+    描述: XGBoost模型叶子节点特征，编号68
+
+  feature_67 -> XGBoost_leaf_feature_67
+    类型: xgboost_leaf, 重要性: 0.012343
+    描述: XGBoost模型叶子节点特征，编号67
+
+  feature_85 -> XGBoost_leaf_feature_85
+    类型: xgboost_leaf, 重要性: 0.012206
+    描述: XGBoost模型叶子节点特征，编号85
+
+  feature_75 -> XGBoost_leaf_feature_75
+    类型: xgboost_leaf, 重要性: 0.011944
+    描述: XGBoost模型叶子节点特征，编号75
+
+  feature_70 -> XGBoost_leaf_feature_70
+    类型: xgboost_leaf, 重要性: 0.011597
+    描述: XGBoost模型叶子节点特征，编号70
+
+  feature_82 -> XGBoost_leaf_feature_82
+    类型: xgboost_leaf, 重要性: 0.007523
+    描述: XGBoost模型叶子节点特征，编号82
+
+  feature_71 -> XGBoost_leaf_feature_71
+    类型: xgboost_leaf, 重要性: 0.007236
+    描述: XGBoost模型叶子节点特征，编号71
+
+  feature_83 -> XGBoost_leaf_feature_83
+    类型: xgboost_leaf, 重要性: 0.006239
+    描述: XGBoost模型叶子节点特征，编号83
+
+  feature_66 -> XGBoost_leaf_feature_66
+    类型: xgboost_leaf, 重要性: 0.003408
+    描述: XGBoost模型叶子节点特征，编号66
+
+  feature_86 -> XGBoost_leaf_feature_86
+    类型: xgboost_leaf, 重要性: 0.003178
+    描述: XGBoost模型叶子节点特征，编号86
+
+  feature_79 -> XGBoost_leaf_feature_79
+    类型: xgboost_leaf, 重要性: 0.002628
+    描述: XGBoost模型叶子节点特征，编号79
+
+  feature_76 -> XGBoost_leaf_feature_76
+    类型: xgboost_leaf, 重要性: 0.001824
+    描述: XGBoost模型叶子节点特征，编号76
+
+  feature_84 -> XGBoost_leaf_feature_84
+    类型: xgboost_leaf, 重要性: 0.001797
+    描述: XGBoost模型叶子节点特征，编号84
+
+  feature_87 -> XGBoost_leaf_feature_87
+    类型: xgboost_leaf, 重要性: 0.000000
+    描述: XGBoost模型叶子节点特征，编号87
+
+
+PCA 数据源 (1 个特征):
+--------------------------------------------------------------------------------
+  pca_0 -> PCA_pca_0
+    类型: pca_component, 重要性: 0.025540
+    描述: PCA降维后的主成分，编号0
+
+
+UNKNOWN 数据源 (23 个特征):
+--------------------------------------------------------------------------------
+  30 -> unknown_feature_30
+    类型: unknown, 重要性: 0.046762
+    描述: 未知特征，索引30
+
+  46 -> unknown_feature_46
+    类型: unknown, 重要性: 0.029786
+    描述: 未知特征，索引46
+
+  48 -> unknown_feature_48
+    类型: unknown, 重要性: 0.029206
+    描述: 未知特征，索引48
+
+  45 -> unknown_feature_45
+    类型: unknown, 重要性: 0.028626
+    描述: 未知特征，索引45
+
+  31 -> unknown_feature_31
+    类型: unknown, 重要性: 0.028575
+    描述: 未知特征，索引31
+
+  34 -> unknown_feature_34
+    类型: unknown, 重要性: 0.028096
+    描述: 未知特征，索引34
+
+  33 -> unknown_feature_33
+    类型: unknown, 重要性: 0.026957
+    描述: 未知特征，索引33
+
+  42 -> unknown_feature_42
+    类型: unknown, 重要性: 0.026330
+    描述: 未知特征，索引42
+
+  38 -> unknown_feature_38
+    类型: unknown, 重要性: 0.026214
+    描述: 未知特征，索引38
+
+  49 -> unknown_feature_49
+    类型: unknown, 重要性: 0.024114
+    描述: 未知特征，索引49
+
+  29 -> unknown_feature_29
+    类型: unknown, 重要性: 0.023357
+    描述: 未知特征，索引29
+
+  right_y_original -> unknown_right_y_original
+    类型: unknown, 重要性: 0.022761
+    描述: 未知特征类型: right_y_original
+
+  37 -> unknown_feature_37
+    类型: unknown, 重要性: 0.002251
+    描述: 未知特征，索引37
+
+  26 -> unknown_feature_26
+    类型: unknown, 重要性: 0.001511
+    描述: 未知特征，索引26
+
+  44 -> unknown_feature_44
+    类型: unknown, 重要性: 0.001247
+    描述: 未知特征，索引44
+
+  43 -> unknown_feature_43
+    类型: unknown, 重要性: 0.000341
+    描述: 未知特征，索引43
+
+  32 -> unknown_feature_32
+    类型: unknown, 重要性: 0.000317
+    描述: 未知特征，索引32
+
+  36 -> unknown_feature_36
+    类型: unknown, 重要性: 0.000311
+    描述: 未知特征，索引36
+
+  35 -> unknown_feature_35
+    类型: unknown, 重要性: 0.000308
+    描述: 未知特征，索引35
+
+  28 -> unknown_feature_28
+    类型: unknown, 重要性: 0.000260
+    描述: 未知特征，索引28
+
+  40 -> unknown_feature_40
+    类型: unknown, 重要性: 0.000249
+    描述: 未知特征，索引40
+
+  27 -> unknown_feature_27
+    类型: unknown, 重要性: 0.000159
+    描述: 未知特征，索引27
+
+  41 -> unknown_feature_41
+    类型: unknown, 重要性: 0.000123
+    描述: 未知特征，索引41
+
+5. 气象特征详细分析:
+--------------------------------------------------------------------------------
+  TEMPERATURE_MAX: 2 个特征
+    13 -> right_gtmax_mean (重要性: 0.001594)
+    9 -> right_tmax_mean (重要性: 0.000259)
+
+  TEMPERATURE_AVG: 2 个特征
+    8 -> right_tave_mean (重要性: 0.001305)
+    12 -> right_gtave_mean (重要性: 0.000232)
+
+  TEMPERATURE_MIN: 2 个特征
+    10 -> right_tmin_mean (重要性: 0.000447)
+    14 -> right_gtmin_mean (重要性: 0.000321)
+
+  PRECIPITATION: 1 个特征
+    11 -> right_rain_mean (重要性: 0.005258)
+
+  YEAR: 1 个特征
+    5 -> right_yyyy (重要性: 0.000803)
+
+  LATITUDE: 1 个特征
+    3 -> right_lat (重要性: 0.000762)
+
+  EVAPORATION: 1 个特征
+    15 -> right_sevp_mean (重要性: 0.000187)
+
+  MONTH: 1 个特征
+    6 -> right_mm (重要性: 0.000157)
+
+  ELEVATION: 1 个特征
+    4 -> right_altitude (重要性: 0.000138)
+
+  SUNSHINE: 1 个特征
+    7 -> right_tsun_mean (重要性: 0.000135)
+
+  LONGITUDE: 1 个特征
+    2 -> right_lon (重要性: 0.000000)
+
+6. 土壤特征详细分析:
+--------------------------------------------------------------------------------
+  SOIL_ORGANIC_CARBON: 2 个特征
+    22 -> right_socd (重要性: 0.005460)
+    21 -> right_soc (重要性: 0.000155)
+
+  COORDINATE: 2 个特征
+    16 -> right_x (重要性: 0.001091)
+    17 -> right_y (重要性: 0.000323)
+
+  SOIL_POTASSIUM: 1 个特征
+    23 -> right_tk (重要性: 0.000835)
+
+  SOIL_NITROGEN: 1 个特征
+    24 -> right_tnd (重要性: 0.000578)
+
+  SOIL_TEXTURE: 1 个特征
+    18 -> right_tz (重要性: 0.000330)
+
+  SOIL_PHOSPHORUS: 1 个特征
+    25 -> right_tpd (重要性: 0.000323)
+
+  SOIL_CATION_EXCHANGE: 1 个特征
+    19 -> right_cec (重要性: 0.000311)
+
+  SOIL_PH: 1 个特征
+    20 -> right_ph (重要性: 0.000000)

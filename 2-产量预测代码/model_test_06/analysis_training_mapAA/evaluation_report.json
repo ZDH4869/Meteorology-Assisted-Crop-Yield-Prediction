@@ -1,0 +1,19 @@
+{
+    "classification": {
+        "accuracy": 0.0,
+        "detailed_report": "              precision    recall  f1-score   support\n\n         0.0       0.00      0.00      0.00       0.0\n         1.0       0.00      0.00      0.00    1000.0\n\n    accuracy                           0.00    1000.0\n   macro avg       0.00      0.00      0.00    1000.0\nweighted avg       0.00      0.00      0.00    1000.0\n"
+    },
+    "regression": {
+        "r2_scores": {
+            "output_0": 0.9011412080694245
+        },
+        "mae_scores": {
+            "output_0": 0.009907874278599462,
+            "output_1": 0.00976512831896358
+        },
+        "rmse_scores": {
+            "output_0": 0.01629335726923082,
+            "output_1": 0.016018630972245953
+        }
+    }
+}
